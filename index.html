@@ -36,7 +36,7 @@
     }
 
     a { color: inherit; text-decoration: none; }
-    button, input, select { font: inherit; }
+    button, input, select, textarea { font: inherit; }
     button { border: 0; cursor: pointer; }
 
     .announcement {
@@ -125,6 +125,7 @@
     }
 
     .icon-btn:hover { background: var(--peach); }
+    .menu-btn { display: none; }
 
     .cart-count {
       position: absolute;
@@ -139,8 +140,6 @@
       color: white;
       font-size: .6rem;
     }
-
-    .menu-btn { display: none; }
 
     .hero {
       max-width: 1100px;
@@ -182,7 +181,8 @@
       font-size: 1rem;
     }
 
-    .hero-buttons {
+    .hero-buttons,
+    .contact-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -306,7 +306,12 @@
     }
 
     .sort { min-width: 165px; }
-    .search:focus, .sort:focus { border-color: var(--pink-dark); }
+
+    .search:focus,
+    .sort:focus,
+    .form-control:focus {
+      border-color: var(--pink-dark);
+    }
 
     .filters {
       display: flex;
@@ -482,13 +487,7 @@
 
     .contact p { color: var(--muted); }
 
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
+    .contact-buttons { justify-content: center; }
 
     footer {
       margin-top: 25px;
@@ -523,7 +522,8 @@
       font-size: .73rem;
     }
 
-    .overlay {
+    .overlay,
+    .modal {
       position: fixed;
       inset: 0;
       z-index: 30;
@@ -531,7 +531,8 @@
       background: rgba(60, 39, 44, .5);
     }
 
-    .overlay.open { display: block; }
+    .overlay.open,
+    .modal.open { display: block; }
 
     .side-panel {
       position: absolute;
@@ -553,7 +554,8 @@
 
     .panel-title h2 { font-size: 1.8rem; }
 
-    .close {
+    .close,
+    .modal-close {
       background: transparent;
       color: var(--muted);
       font-size: 1.4rem;
@@ -591,6 +593,75 @@
       padding: 35px 0;
       color: var(--muted);
       text-align: center;
+    }
+
+    .modal {
+      display: none;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .modal.open { display: grid; }
+
+    .modal-card {
+      position: relative;
+      width: min(560px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 28px;
+      border-radius: 22px;
+      background: var(--cream);
+    }
+
+    .modal-card h2 {
+      margin: 7px 0;
+      font-size: 2rem;
+    }
+
+    .modal-card > p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+    }
+
+    .form-group { margin: 15px 0; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    textarea.form-control {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    .form-status {
+      min-height: 24px;
+      margin-top: 10px;
+      font-size: .82rem;
     }
 
     .toast {
@@ -669,6 +740,7 @@
 
       .stats { gap: 15px; }
       .footer-inner { grid-template-columns: 1fr; }
+      .modal-card { padding: 24px 18px; }
     }
   </style>
 </head>
@@ -707,12 +779,12 @@
     <section class="hero" id="home">
       <div class="hero-content">
         <div class="eyebrow">Resin art • Home décor • Custom orders</div>
-        <h1>KAAM CHALU HAI CUTIEDA ❤️</h1>
+        <h1>KAAM CHALU HAI CUTIEDA ❤️😘</h1>
         <p>Sweet, colourful and thoughtfully handmade resin creations by Dishu, from a small home studio.</p>
 
         <div class="hero-buttons">
           <a class="btn btn-primary" href="#shop">See the collection</a>
-          <a class="btn btn-outline" href="https://wa.me/919024709495" target="_blank">WhatsApp Dishu</a>
+          <button class="btn btn-outline" onclick="openFeatureModal()">Request a feature</button>
         </div>
       </div>
     </section>
@@ -739,11 +811,11 @@
           <span>Small pieces for happy spaces</span>
         </a>
 
-        <a class="collection" href="https://wa.me/919024709495?text=Hi%20Dishu%2C%20I%20would%20like%20to%20ask%20about%20a%20custom%20order." target="_blank">
+        <button class="collection" onclick="openFeatureModal()">
           <div class="collection-icon">☼</div>
-          <h3>Custom orders</h3>
-          <span>Made especially for you</span>
-        </a>
+          <h3>Request a feature</h3>
+          <span>Tell us what you would love to see</span>
+        </button>
       </div>
     </section>
 
@@ -758,6 +830,7 @@
 
       <div class="toolbar">
         <input class="search" id="search" type="search" placeholder="Search artworks..." oninput="renderProducts()" />
+
         <select class="sort" id="sort" onchange="renderProducts()">
           <option value="featured">Featured first</option>
           <option value="low">Price: low to high</option>
@@ -794,10 +867,10 @@
     <section class="contact">
       <div class="eyebrow">Have something in mind?</div>
       <h2>Let’s create something special.</h2>
-      <p>For custom orders, product questions or availability, send a WhatsApp message.</p>
+      <p>Have an idea for a product? Tell us about it and help shape future creations.</p>
 
       <div class="contact-buttons">
-        <a class="btn btn-primary" href="https://wa.me/919024709495" target="_blank">WhatsApp: 9024709495</a>
+        <button class="btn btn-primary" onclick="openFeatureModal()">Request a feature</button>
         <a class="btn btn-outline" href="https://www.instagram.com/art_by_dishu06" target="_blank">DM on Instagram</a>
       </div>
     </section>
@@ -825,7 +898,7 @@
       </div>
     </div>
 
-    <div class="copyright">© 2026 Art by Dishu. All rights reserved. V1.0 26G28</div>
+    <div class="copyright">© 2026 Art by Dishu. All rights reserved.</div>
   </footer>
 
   <div class="overlay" id="cartPanel" onclick="closeCart(event)">
@@ -840,74 +913,59 @@
     </aside>
   </div>
 
+  <div class="modal" id="featureModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeFeatureModal()">×</button>
+
+      <div class="eyebrow">Help shape Art by Dishu</div>
+      <h2>Request a feature</h2>
+      <p>Tell us about any product, colour, size, design or idea you would like to see. There is no word limit.</p>
+
+      <form id="featureForm" onsubmit="submitFeatureRequest(event)">
+        <div class="form-group">
+          <label for="requestName">Your name</label>
+          <input class="form-control" id="requestName" type="text" placeholder="Optional" />
+        </div>
+
+        <div class="form-group">
+          <label for="requestContact">Email or phone</label>
+          <input class="form-control" id="requestContact" type="text" placeholder="Optional" />
+        </div>
+
+        <div class="form-group">
+          <label for="requestText">What would you like to see?</label>
+          <textarea class="form-control" id="requestText" required placeholder="Write your idea here..."></textarea>
+          <div class="form-note">Letters, numbers, symbols and long messages are accepted.</div>
+        </div>
+
+        <button class="btn btn-primary" id="requestSubmit" type="submit" style="width:100%">
+          Send request
+        </button>
+
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
-    // Add the Apps Script deployed /exec URL here when the backend is deployed.
     const API_URL = "https://script.google.com/macros/s/AKfycby_AU2Kt-nRMdn2WmJjolsWRvPx_VHtSQsERqGbief8JwPZHoPQmSSB3NMq2wb0MyM0FQ/exec";
 
     const artworks = [
-      {
-        id: 1,
-        name: "Golden Krishna",
-        category: "Resin Art",
-        price: 2499,
-        old: 2999,
-        badge: "Bestseller",
-        icon: "✦"
-      },
-      {
-        id: 2,
-        name: "Ocean Bloom",
-        category: "Resin Art",
-        price: 1899,
-        old: 2199,
-        badge: "New",
-        icon: "≈"
-      },
-      {
-        id: 3,
-        name: "Custom Name Plate",
-        category: "Custom Orders",
-        price: 999,
-        old: 0,
-        badge: "Custom",
-        icon: "♡"
-      },
-      {
-        id: 4,
-        name: "Pretty Trinket Tray",
-        category: "Home Décor",
-        price: 899,
-        old: 1099,
-        badge: "New",
-        icon: "◇"
-      },
-      {
-        id: 5,
-        name: "Floral Coasters",
-        category: "Home Décor",
-        price: 1299,
-        old: 0,
-        badge: "",
-        icon: "✿"
-      },
-      {
-        id: 6,
-        name: "Moonlight Art",
-        category: "Wall Art",
-        price: 2199,
-        old: 0,
-        badge: "",
-        icon: "☾"
-      }
+      { id: 1, name: "Golden Krishna", category: "Resin Art", price: 2499, old: 2999, badge: "Bestseller", icon: "✦" },
+      { id: 2, name: "Ocean Bloom", category: "Resin Art", price: 1899, old: 2199, badge: "New", icon: "≈" },
+      { id: 3, name: "Custom Name Plate", category: "Custom Orders", price: 999, old: 0, badge: "Custom", icon: "♡" },
+      { id: 4, name: "Pretty Trinket Tray", category: "Home Décor", price: 899, old: 1099, badge: "New", icon: "◇" },
+      { id: 5, name: "Floral Coasters", category: "Home Décor", price: 1299, old: 0, badge: "", icon: "✿" },
+      { id: 6, name: "Moonlight Art", category: "Wall Art", price: 2199, old: 0, badge: "", icon: "☾" }
     ];
 
     let selectedCategory = "All";
     let cart = JSON.parse(localStorage.getItem("dishuCart") || "[]");
 
     function money(value) {
-      return "₹" + value.toLocaleString("en-IN");
+      return "₹" + Number(value).toLocaleString("en-IN");
     }
 
     function renderFilters() {
@@ -943,7 +1001,7 @@
         ? items.map(item => `
           <article class="product-card">
             ${item.badge ? `<span class="badge">${item.badge}</span>` : ""}
-            <div class="product-art" aria-label="${item.name} placeholder">${item.icon}</div>
+            <div class="product-art">${item.icon}</div>
 
             <div class="product-info">
               <span class="product-category">${item.category}</span>
@@ -1036,6 +1094,9 @@
 
     function changeQuantity(id, amount) {
       const item = cart.find(product => product.id === id);
+
+      if (!item) return;
+
       item.quantity += amount;
 
       if (item.quantity <= 0) {
@@ -1061,8 +1122,62 @@
       }
     }
 
+    function openFeatureModal() {
+      document.getElementById("featureModal").classList.add("open");
+      document.getElementById("requestText").focus();
+    }
+
+    function closeFeatureModal() {
+      document.getElementById("featureModal").classList.remove("open");
+    }
+
+    async function submitFeatureRequest(event) {
+      event.preventDefault();
+
+      const submitButton = document.getElementById("requestSubmit");
+      const status = document.getElementById("formStatus");
+
+      const payload = {
+        action: "createFeatureRequest",
+        name: document.getElementById("requestName").value,
+        contact: document.getElementById("requestContact").value,
+        request: document.getElementById("requestText").value
+      };
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      status.textContent = "";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message || "Unable to save request");
+        }
+
+        document.getElementById("featureForm").reset();
+        closeFeatureModal();
+        showToast("Thank you! Your request was saved.");
+      } catch (error) {
+        status.textContent = "Could not send the request. Please try again.";
+        status.style.color = "#b65063";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send request";
+      }
+    }
+
     function showToast(message) {
       const toast = document.getElementById("toast");
+
       toast.textContent = message;
       toast.classList.add("show");
 
@@ -1075,3 +1190,11 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
