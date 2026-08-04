@@ -26,6 +26,9 @@
     button,input,select,textarea { font:inherit; }
     button { border:0; cursor:pointer; }
     button:disabled { cursor:not-allowed; opacity:.5; }
+.image-fallback {
+  background:linear-gradient(135deg,var(--peach),var(--pink));
+}
 
     .announcement {
       padding:8px;
@@ -263,7 +266,7 @@
 }
 
 .product-art.has-image {
-  background-size:cover, contain;
+  background-size:contain, cover;
   background-repeat:no-repeat;
   background-position:center;
 }
@@ -530,7 +533,10 @@
       .section-heading { display:block; }
       .section-heading p { margin-top:10px; }
       .collections,.about { grid-template-columns:1fr; }
-      .product-art { height:145px; }
+      .product-art {
+  height:auto;
+  aspect-ratio:1 / 1;
+}
       .product-info { padding:10px; }
       .product-info p { min-height:52px; font-size:.7rem; }
       .product-actions { display:block; }
@@ -770,6 +776,10 @@
       }
       return "";
     }
+function imageError(element) {
+  element.style.display = "none";
+  element.parentElement.classList.add("image-fallback");
+}
 
     function escapeHtml(value) {
       return String(value ?? "").replace(/[&<>"']/g, character => ({
@@ -837,8 +847,8 @@
         const image = item.imageUrl
   ? `style="
       background-image:
-        linear-gradient(135deg,var(--peach),var(--pink)),
-        url('${escapeHtml(item.imageUrl)}');
+        url('${escapeHtml(item.imageUrl)}'),
+        linear-gradient(135deg,var(--peach),var(--pink));
     "`
   : "";
 
@@ -846,7 +856,11 @@
         return `
           <article class="product-card">
             ${item.featured ? `<span class="badge">Featured</span>` : ""}
-            <div class="product-art ${item.imageUrl ? "has-image" : ""}" ${image}>
+            <div
+  class="product-art ${item.imageUrl ? "has-image" : ""}"
+  ${image}
+  onerror="imageError(this)"
+>
   ${item.imageUrl ? "" : "♡"}
 </div>
             <div class="product-info">
@@ -1175,7 +1189,11 @@
 
         return `
           <div class="admin-product">
-            <img src="${escapeHtml(image)}" alt="${escapeHtml(name)}">
+            <img
+  src="${escapeHtml(image)}"
+  alt="${escapeHtml(name)}"
+  onerror="imageError(this)"
+>
             <div><strong>${escapeHtml(name)}</strong><br>${money(price)}</div>
             <button class="btn btn-outline" onclick="editAdminProduct('${escapeHtml(id)}')">Edit</button>
           </div>
