@@ -249,15 +249,25 @@
     }
 
     .product-art {
-      height:175px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--peach),var(--pink));
-      background-size:cover;
-      background-position:center;
-      color:white;
-      font-size:3rem;
-    }
+  aspect-ratio:1 / 1;
+  width:100%;
+  display:grid;
+  place-items:center;
+  background:
+    linear-gradient(135deg,var(--peach),var(--pink)),
+    linear-gradient(135deg,var(--peach),var(--pink));
+  background-position:center;
+  background-size:cover;
+  color:white;
+  font-size:3rem;
+}
+
+.product-art.has-image {
+  background-size:cover, contain;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+
 
     .product-info { padding:14px; }
     .product-category {
@@ -440,12 +450,14 @@
     }
 
     .admin-product img {
-      width:55px;
-      height:48px;
-      object-fit:cover;
-      border-radius:7px;
-      background:var(--pink);
-    }
+  width:55px;
+  height:55px;
+  aspect-ratio:1 / 1;
+  object-fit:contain;
+  border-radius:7px;
+  background:linear-gradient(135deg,var(--peach),var(--pink));
+}
+
 
     .admin-product button { padding:6px 8px; font-size:.72rem; }
 
@@ -645,7 +657,15 @@
           <div class="form-group"><label>Sale price</label><input class="form-control" id="adminProductSalePrice" type="number" min="0"></div>
           <div class="form-group"><label>Stock</label><input class="form-control" id="adminProductStock" type="number" min="0"></div>
           <div class="form-group"><label>Description</label><textarea class="form-control" id="adminProductDescription"></textarea></div>
-          <div class="form-group"><label>Product photo</label><input class="form-control" id="adminProductPhoto" type="file" accept="image/*"></div>
+          <div class="form-group">
+  <label>Product photo</label>
+  <input class="form-control" id="adminProductPhoto" type="file" accept="image/*">
+  <img
+    id="adminProductImagePreview"
+    alt="Current product image"
+    style="display:none;width:120px;height:100px;object-fit:cover;margin-top:10px;border-radius:8px;background:#f8c7ce"
+  >
+</div>
           <div class="form-group"><label><input id="adminProductFeatured" type="checkbox"> Featured product</label></div>
 
           <button class="btn btn-primary" onclick="saveAdminProduct()">Save product</button>
@@ -815,13 +835,20 @@
       $("products").innerHTML = list.length ? list.map(item => {
         const outOfStock = Number(item.stock || 0) <= 0;
         const image = item.imageUrl
-          ? `style="background-image:url('${escapeHtml(item.imageUrl)}')"`
-          : "";
+  ? `style="
+      background-image:
+        linear-gradient(135deg,var(--peach),var(--pink)),
+        url('${escapeHtml(item.imageUrl)}');
+    "`
+  : "";
+
 
         return `
           <article class="product-card">
             ${item.featured ? `<span class="badge">Featured</span>` : ""}
-            <div class="product-art" ${image}>${item.imageUrl ? "" : "♡"}</div>
+            <div class="product-art ${item.imageUrl ? "has-image" : ""}" ${image}>
+  ${item.imageUrl ? "" : "♡"}
+</div>
             <div class="product-info">
               <span class="product-category">${escapeHtml(item.category)}</span>
               <h3>${escapeHtml(item.name)}</h3>
@@ -1174,6 +1201,17 @@
         String(field(product,"FEATURED","Featured","featured")).toLowerCase() === "true";
 
       $("adminProductPhoto").value = "";
+      const currentImage = field(product, "IMAGE", "Image", "image");
+const preview = $("adminProductImagePreview");
+
+if (currentImage) {
+  preview.src = currentImage;
+  preview.style.display = "block";
+} else {
+  preview.removeAttribute("src");
+  preview.style.display = "none";
+}
+
       $("adminSection").scrollIntoView({behavior:"smooth"});
     }
 
@@ -1198,6 +1236,13 @@
       }
 
       const file = $("adminProductPhoto").files[0];
+      const preview = $("adminProductImagePreview");
+
+if (file) {
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = "block";
+}
+
       let imageUrl = "";
 
       if (file) {
