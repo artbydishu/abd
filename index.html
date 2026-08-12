@@ -10,19 +10,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preload" as="image"
     href="https://drive.google.com/thumbnail?id=1rHpy6Pf1f6NRCxf4I2nDCug-gNZXDiYX&sz=w200">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pink: #f8c7ce;
-      --dark: #cf7b8b;
-      --peach: #ffe4d7;
-      --cream: #fffaf8;
-      --text: #443539;
-      --muted: #927b80;
-      --line: #f1dfe1;
-      --danger: #a33d52;
-    }
+  --pink: #f8c7ce;
+  --dark: #cf7b8b;
+  --peach: #ffe4d7;
+  --cream: #fffaf8;
+  --text: #443539;
+  --muted: #927b80;
+  --line: #f1dfe1;
+  --danger: #a33d52;
+
+  --scrollbar-track: #fffaf8;
+  --scrollbar-thumb: #e5b2bb;
+  --scrollbar-thumb-hover: #cf7b8b;
+}
+
 
     * {
       box-sizing: border-box;
@@ -33,6 +38,35 @@
     html {
       scroll-behavior: smooth;
     }
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+
+* {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
 
     body {
       background: var(--cream);
@@ -175,32 +209,40 @@
     .form-control:focus {
       border-color: var(--dark);
     }
-.icon-btn {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: transparent;
-  font-size: 1.1rem;
-  -webkit-tap-highlight-color: transparent;
-}
 
-.search-btn {
-  font-size: .95rem;
-}
+    .icon-btn {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text);
+      font-size: 1.1rem;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.icon-btn:focus {
-  outline: none;
-  background: transparent;
-}
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      margin: auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-.icon-btn:focus-visible {
-  outline: 2px solid var(--dark);
-  outline-offset: 2px;
-}
+    .icon-btn:focus {
+      outline: none;
+      background: transparent;
+    }
 
+    .icon-btn:focus-visible {
+      outline: 2px solid var(--dark);
+      outline-offset: 2px;
+    }
 
     .cart-count {
       position: absolute;
@@ -217,17 +259,20 @@
     }
 
     .hero {
-      width: min(1100px, calc(100% - 24px));
-      min-height: 430px;
-      margin: 20px auto 0;
-      padding: 45px 7%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 30px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, var(--peach), var(--pink));
-    }
+  width: min(1100px, calc(100% - 24px));
+  min-height: 340px;
+  margin: 18px auto 0;
+  padding: 34px 6%;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 42px;
+  border: 0;
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  box-shadow: none;
+}
+
 
     .hero-content {
       max-width: 600px;
@@ -244,13 +289,15 @@
     h1,
     h2,
     h3 {
-      font-family: "Playfair Display", serif;
-      line-height: 1.15;
+      font-family: "DM Serif Display", serif;
+      font-weight: 400;
     }
 
     h1 {
-      margin: 15px 0;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      max-width: 520px;
+      margin: 10px 0 12px;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.15;
     }
 
     h2 {
@@ -259,7 +306,9 @@
 
     .hero p {
       max-width: 460px;
+      margin: 0;
       color: #725960;
+      font-size: .92rem;
     }
 
     .hero-buttons,
@@ -267,7 +316,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 25px;
+      margin-top: 18px;
     }
 
     .btn {
@@ -291,114 +340,116 @@
       color: var(--dark);
     }
 
-    .hero-image,
-    .about-art {
-      width: 100%;
-      min-height: 300px;
-      border-radius: 20px;
-      object-fit: cover;
-      background: linear-gradient(135deg, var(--peach), var(--pink));
+    .hero-image {
+  width: 100%;
+  height: 265px;
+  min-height: 0;
+  display: block;
+  border: 0;
+  border-radius: 20px;
+  object-fit: cover;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+    .hero-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #ffffff80;
+    }
+
+    .hero-details div {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .hero-details strong {
+      color: var(--dark);
+      font-family: "DM Serif Display", serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .hero-details span {
+      color: #765c62;
+      font-size: .68rem;
     }
 
     .banner {
-  position: relative;
-  width: min(1100px, 100%);
-  margin: 20px auto 0;
-  padding: 0 18px;
-  text-align: center;
-}
+      position: relative;
+      width: min(1100px, 100%);
+      margin: 20px auto 0;
+      padding: 0 18px;
+      text-align: center;
+    }
 
-.banner img {
-  display: block;
-  width: 100%;
-  height: 230px;
-  object-fit: cover;
-  border-radius: 22px;
-}
+    .banner img {
+      display: block;
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 22px;
+    }
 
-.banner img.slide-out-left {
-  animation: bannerOutLeft .28s ease-in forwards;
-}
+    .banner img.slide-out-left {
+      animation: bannerOutLeft .28s ease-in forwards;
+    }
 
-.banner img.slide-out-right {
-  animation: bannerOutRight .28s ease-in forwards;
-}
+    .banner img.slide-out-right {
+      animation: bannerOutRight .28s ease-in forwards;
+    }
 
-.banner img.slide-in-right {
-  animation: bannerInRight .42s ease-out forwards;
-}
+    .banner img.slide-in-right {
+      animation: bannerInRight .42s ease-out forwards;
+    }
 
-.banner img.slide-in-left {
-  animation: bannerInLeft .42s ease-out forwards;
-}
+    .banner img.slide-in-left {
+      animation: bannerInLeft .42s ease-out forwards;
+    }
 
-@keyframes bannerOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    @keyframes bannerOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-45px); opacity: 0; }
+    }
 
-  to {
-    transform: translateX(-45px);
-    opacity: 0;
-  }
-}
+    @keyframes bannerOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(45px); opacity: 0; }
+    }
 
-@keyframes bannerOutRight {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    @keyframes bannerInRight {
+      from { transform: translateX(45px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
 
-  to {
-    transform: translateX(45px);
-    opacity: 0;
-  }
-}
+    @keyframes bannerInLeft {
+      from { transform: translateX(-45px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
 
-@keyframes bannerInRight {
-  from {
-    transform: translateX(45px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes bannerInLeft {
-  from {
-    transform: translateX(-45px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.banner-next {
-  position: absolute;
-  top: 50%;
-  right: 28px;
-  z-index: 2;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #fff9;
-  color: var(--dark);
-  font-size: 1.4rem;
-  transform: translateY(-50%);
-  box-shadow: 0 3px 12px #503b4226;
-  transition: background .2s ease, transform .2s ease;
-}
-
-
+    .banner-next {
+      position: absolute;
+      top: 50%;
+      right: 28px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff9;
+      color: var(--dark);
+      font-size: 1.4rem;
+      transform: translateY(-50%);
+      box-shadow: 0 3px 12px #503b4226;
+      transition: background .2s ease, transform .2s ease;
+    }
 
     .dots {
       margin-top: 9px;
@@ -533,7 +584,11 @@
 
     .product-info h3 {
       margin: 4px 0;
+      color: var(--text);
+      font-family: "DM Serif Display", serif;
       font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.2;
     }
 
     .product-info p {
@@ -544,13 +599,19 @@
 
     .price {
       margin: 8px 0;
+      color: var(--text);
+      font-family: "Manrope", sans-serif;
+      font-size: .95rem;
       font-weight: 700;
+      letter-spacing: -.02em;
     }
 
     .old-price {
       margin-left: 4px;
       color: #b9a6a8;
+      font-family: "Manrope", sans-serif;
       font-size: .78rem;
+      font-weight: 500;
       text-decoration: line-through;
     }
 
@@ -590,36 +651,9 @@
       font-size: .74rem;
     }
 
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      align-items: center;
-      padding: 38px 7%;
-      border-radius: 25px;
-      background: var(--peach);
-    }
-
-    .about p {
-      margin: 14px 0 20px;
-      color: var(--muted);
-    }
-
-    .stats {
-      display: flex;
-      gap: 24px;
-      margin-top: 23px;
-    }
-
-    .stats strong {
-      display: block;
-      color: var(--dark);
-      font: 700 1.35rem "Playfair Display", serif;
-    }
-
-    .stats span {
-      color: var(--muted);
-      font-size: .7rem;
+    /* The original About markup is preserved but hidden. */
+    #about {
+      display: none;
     }
 
     .contact {
@@ -680,82 +714,84 @@
       color: var(--muted);
       text-align: center;
     }
-.loading-products {
-  grid-column: 1 / -1;
-  padding: 45px 15px;
-  color: var(--muted);
-  text-align: center;
-  font-size: .9rem;
-}
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 24px;
-}
+    .loading-products {
+      grid-column: 1 / -1;
+      padding: 45px 15px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
 
-.pagination button {
-  min-width: 34px;
-  height: 34px;
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--text);
-}
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
 
-.pagination button.active {
-  background: var(--dark);
-  border-color: var(--dark);
-  color: #fff;
-}
+    .pagination button {
+      min-width: 34px;
+      height: 34px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+    }
 
-.pagination button:disabled {
-  opacity: .45;
-}
-.pagination-top {
-  justify-content: flex-start;
-  margin: -4px 0 16px;
-  gap: 5px;
-}
+    .pagination button.active {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: #fff;
+    }
 
-.pagination-top button {
-  min-width: 28px;
-  height: 28px;
-  padding: 3px 7px;
-  font-size: .72rem;
-}
+    .pagination button:disabled {
+      opacity: .45;
+    }
 
-   .modal {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: none;
-  place-items: center;
-  padding: 12px;
-  background: #3c272c99;
-  overflow: hidden;
-}
+    .pagination-top {
+      justify-content: flex-start;
+      margin: -4px 0 16px;
+      gap: 5px;
+    }
 
-.modal.open {
-  display: grid;
-}
+    .pagination-top button {
+      min-width: 28px;
+      height: 28px;
+      padding: 3px 7px;
+      font-size: .72rem;
+    }
 
-.modal-card {
-  width: min(480px, calc(100vw - 24px));
-  max-width: 100%;
-  height: auto;
-  max-height: min(720px, calc(100dvh - 24px));
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 24px;
-  border-radius: 18px;
-  background: var(--cream);
-  box-shadow: 0 15px 50px #3c272c55;
-  scrollbar-gutter: stable;
-}
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      padding: 12px;
+      background: #3c272c99;
+      overflow: hidden;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-card {
+      width: min(480px, calc(100vw - 24px));
+      max-width: 100%;
+      height: auto;
+      max-height: min(720px, calc(100dvh - 24px));
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 24px;
+      border-radius: 18px;
+      background: var(--cream);
+      box-shadow: 0 15px 50px #3c272c55;
+      scrollbar-gutter: stable;
+    }
 
     .modal-header {
       display: flex;
@@ -792,247 +828,180 @@
       resize: vertical;
     }
 
-    /* =========================
-   PREMIUM CART / SELECTIONS
-   ========================= */
+    #cartModal .modal-card {
+      width: min(560px, calc(100vw - 24px));
+      max-height: min(760px, calc(100dvh - 24px));
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--cream);
+    }
 
-#cartModal .modal-card {
-  width: min(560px, calc(100vw - 24px));
-  padding: 0;
-  overflow: hidden;
-  border-radius: 22px;
-  background: var(--cream);
-}
+    #cartModal .modal-header {
+      margin: 0;
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--cream);
+    }
 
-/* Cart header */
-#cartModal .modal-header {
-  margin: 0;
-  padding: 20px 22px;
-  border-bottom: 1px solid var(--line);
-  background: var(--cream);
-}
+    #cartModal .modal-header h2 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
 
-#cartModal .modal-header h2 {
-  margin: 0;
-  font-size: 1.45rem;
-}
+    #cartItems {
+      flex: 0 1 auto;
+      max-height: 30dvh;
+      padding: 4px 22px 0;
+      overflow-y: auto;
+    }
 
-/* Cart products area */
-#cartItems {
-  padding: 4px 22px 0;
-}
+    .cart-item {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
 
-/* Individual cart item */
-.cart-item {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 13px;
-  min-width: 0;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--line);
-}
+    .cart-art {
+      width: 72px;
+      height: 72px;
+      display: block;
+      object-fit: contain;
+      padding: 4px;
+      border-radius: 12px;
+      background: var(--pink);
+      border: 1px solid var(--line);
+    }
 
-/* Small product thumbnail */
-.cart-art {
-  width: 72px;
-  height: 72px;
-  display: block;
-  object-fit: contain;
-padding: 4px;
-  border-radius: 12px;
-  background: var(--pink);
-  border: 1px solid var(--line);
-}
+    .cart-item > div:nth-child(2) {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--muted);
+      font-family: "Manrope", sans-serif;
+      font-size: .82rem;
+    }
 
-/* Product information */
-.cart-item > div:nth-child(2) {
-  min-width: 0;
-  overflow: hidden;
-}
+    .cart-item > div:nth-child(2) strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text);
+      font-family: "DM Serif Display", serif;
+      font-size: .95rem;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.cart-item > div:nth-child(2) strong {
-  display: block;
-  margin-bottom: 3px;
-  color: var(--text);
-  font-size: .9rem;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .cart-item > div:nth-child(2) br {
+      display: none;
+    }
 
-.cart-item > div:nth-child(2) br {
-  display: none;
-}
-
-.cart-item > div:nth-child(2) {
-  color: var(--muted);
-  font-size: .82rem;
-}
-
-/* Quantity / remove controls */
-.cart-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-}
-
-/* Quantity buttons */
-.cart-controls button {
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  padding: 0;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--text);
-  font-size: .9rem;
-  transition: .2s ease;
-}
-
-.cart-controls button:hover {
-  background: var(--pink);
-  border-color: var(--pink);
-}
-
-/* Quantity number */
-.cart-controls span {
-  min-width: 22px;
-  text-align: center;
-  color: var(--text);
-  font-size: .8rem;
-  font-weight: 700;
-}
-
-/* Remove button */
-.cart-controls button[data-remove] {
-  margin-left: 5px;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font-size: 1rem;
-}
-
-.cart-controls button[data-remove]:hover {
-  background: transparent;
-  color: var(--danger);
-}
-
-/* Total section */
-#cartFooter {
-  padding: 0 22px 18px;
-}
-
-.cart-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
-  padding: 18px 0 8px;
-  font-size: .9rem;
-}
-#cartSubtitle {
-  display: block;
-  margin-top: 2px;
-  color: var(--muted);
-  font-size: .7rem;
-}
-.cart-total span:last-child {
-  color: var(--text);
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-/* Delivery note */
-#cartFooter .status {
-  margin: 0;
-  padding: 0 0 3px;
-  color: var(--muted);
-  font-size: .7rem;
-  line-height: 1.5;
-}
-
-/* Checkout section */
-#checkoutArea {
-  margin-top: 2px;
-  padding: 22px;
-  border-top: 1px solid var(--line);
-  background: #fff;
-}
-
-#checkoutArea h3 {
-  margin-bottom: 14px;
-  font-size: 1.2rem;
-}
-
-/* Mobile cart */
-@media (max-width: 600px) {
-
-  #cartModal {
-    place-items: end center;
-    padding: 0;
-  }
-
-  #cartModal .modal-card {
-    width: 100%;
-    max-height: 88dvh;
-    border-radius: 22px 22px 0 0;
-  }
-
-  #cartModal .modal-header {
-    padding: 17px 18px;
-  }
-
-  #cartItems {
-    padding: 2px 18px 0;
-  }
-
-  .cart-item {
-    grid-template-columns: 60px minmax(0, 1fr);
-    gap: 11px;
-    padding: 13px 0;
-  }
-
-  .cart-art {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-  }
-
-  .cart-controls {
-    grid-column: 2;
-    margin-top: 7px;
-    justify-content: flex-start;
-  }
-
-  #cartFooter {
-    padding: 0 18px 15px;
-  }
-
-  #checkoutArea {
-    padding: 18px;
-  }
-}
-
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
 
     .cart-controls button {
-      min-width: 27px;
-      padding: 3px 7px;
-      border-radius: 5px;
-      background: var(--pink);
+      width: 30px;
+      min-width: 30px;
+      height: 30px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
       color: var(--text);
+      font-size: .9rem;
+      transition: .2s ease;
+    }
+
+    .cart-controls button:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .cart-controls span {
+      min-width: 22px;
+      text-align: center;
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .cart-controls button[data-remove] {
+      margin-left: 5px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .cart-controls button[data-remove]:hover {
+      background: transparent;
+      color: var(--danger);
+    }
+
+    #cartFooter {
+      flex: 0 0 auto;
+      padding: 0 22px 18px;
     }
 
     .cart-total {
       display: flex;
       justify-content: space-between;
-      margin: 22px 0 13px;
-      font-weight: 700;
+      align-items: center;
+      margin: 0;
+      padding: 18px 0 8px;
+      font-size: .9rem;
+    }
+
+    #cartSubtitle {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: .7rem;
+    }
+
+    .cart-total span:last-child {
+      color: var(--text);
+      font-family: "Manrope", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    #cartFooter .status {
+      margin: 0;
+      padding: 0 0 3px;
+      color: var(--muted);
+      font-size: .7rem;
+      line-height: 1.5;
+    }
+
+    #checkoutArea {
+      flex: 1 1 auto;
+      min-height: 0;
+      margin-top: 2px;
+      padding: 22px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+      overflow-y: auto;
+    }
+
+    #checkoutArea h3 {
+      margin-bottom: 14px;
+      font-size: 1.2rem;
     }
 
     .payment-box {
@@ -1137,6 +1106,219 @@ padding: 4px;
       z-index: 1;
     }
 
+    /* Dark theme */
+    body.dark-theme {
+  --cream: #211a1d;
+  --text: #f8e9eb;
+  --muted: #c7aeb3;
+  --line: #513d43;
+  --peach: #4a3038;
+  --pink: #643d48;
+  --scrollbar-track: #171113;
+  --scrollbar-thumb: #604951;
+  --scrollbar-thumb-hover: #cf7b8b;
+  background: var(--cream);
+  color-scheme: dark;
+}
+
+body.dark-theme,
+body.dark-theme main {
+  background: #211a1d;
+  color: #f8e9eb;
+}
+body.dark-theme .section-heading p,
+body.dark-theme .contact p,
+body.dark-theme .empty,
+body.dark-theme .loading-products {
+  color: #c7aeb3;
+}
+
+    body.dark-theme header {
+      background: #211a1dee;
+    }
+
+    body.dark-theme nav {
+      color: #e8cfd4;
+    }
+
+    body.dark-theme .hero p {
+      color: #e2c8cd;
+    }
+
+    body.dark-theme .search,
+    body.dark-theme .sort,
+    body.dark-theme .form-control,
+    body.dark-theme .filter,
+    body.dark-theme .product-card,
+    body.dark-theme .admin-card,
+    body.dark-theme .payment-box {
+      background: #302326;
+      color: var(--text);
+      border-color: var(--line);
+    }
+body.dark-theme .hero {
+  background: linear-gradient(135deg, #4a3038, #643d48);
+  box-shadow: none;
+}
+
+body.dark-theme .hero-image {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+    body.dark-theme .pagination button {
+      background: #302326;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    body.dark-theme .pagination button.active {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    body.dark-theme .badge {
+      background: #302326;
+      color: var(--text);
+    }
+
+    body.dark-theme .filter.active {
+      background: var(--peach);
+    }
+
+    body.dark-theme .icon-btn {
+      color: #f8e9eb;
+      background: transparent;
+    }
+
+    body.dark-theme .icon-btn svg {
+      stroke: #f8e9eb;
+    }
+
+    body.dark-theme .icon-btn:hover {
+      background: #4a3038;
+    }
+
+    body.dark-theme .cart-count {
+      background: #f8c7ce;
+      color: #443539;
+    }
+
+    body.dark-theme .modal {
+      background: #120d0fbb;
+    }
+
+    body.dark-theme footer {
+      background: #171113;
+    }
+
+    body.dark-theme .announcement {
+      background: #4a3038;
+      color: #f8e9eb;
+    }
+
+    /* Final dark-mode overrides */
+    body.dark-theme .hero-details {
+      border-color: #ffffff35;
+    }
+
+    body.dark-theme .hero-details strong {
+      color: #ffd0d7;
+    }
+
+    body.dark-theme .hero-details span {
+      color: #e2c8cd;
+    }
+
+    body.dark-theme #cartModal .modal-card,
+    body.dark-theme #cartModal .modal-header,
+    body.dark-theme #cartModal #cartItems,
+    body.dark-theme #cartModal #cartFooter {
+      background: #211a1d;
+      color: #f8e9eb;
+    }
+
+    body.dark-theme #cartModal #checkoutArea {
+      background: #302326;
+      border-color: #604951;
+      color: #f8e9eb;
+    }
+
+    body.dark-theme #cartModal .cart-item {
+      border-color: #604951;
+    }
+
+    body.dark-theme #cartModal .form-group label,
+    body.dark-theme #cartModal h3,
+    body.dark-theme #cartModal strong,
+    body.dark-theme #cartModal span {
+      color: var(--text);
+    }
+
+    body.dark-theme #cartModal .form-control {
+      background: #211a1d;
+      border-color: #604951;
+      color: #f8e9eb;
+    }
+
+    body.dark-theme #cartModal .form-control::placeholder {
+      color: #a98f96;
+    }
+
+    body.dark-theme #cartModal .payment-box {
+      background: #211a1d;
+      border-color: #604951;
+      color: #f8e9eb;
+    }
+
+    body.dark-theme #cartModal .cart-art {
+      background: #643d48;
+      border-color: #604951;
+    }
+
+    body.dark-theme #cartModal .cart-controls button:not([data-remove]) {
+      background: #302326;
+      border: 1px solid #604951;
+      color: #f8e9eb;
+    }
+
+    body.dark-theme #cartModal .cart-controls button:not([data-remove]):hover {
+      background: #643d48;
+      border-color: #cf7b8b;
+    }
+
+    body.dark-theme #cartModal .cart-controls button[data-remove] {
+      background: transparent;
+      border: 0;
+      color: #c7aeb3;
+    }
+
+    body.dark-theme #cartModal .payment-box p,
+    body.dark-theme #cartModal .status,
+    body.dark-theme #cartModal #cartSubtitle {
+      color: #c7aeb3;
+    }
+
+    body.dark-theme #cartModal .close {
+      color: #c7aeb3;
+    }
+
+    body.dark-theme #cartModal .close:hover {
+      color: #f8e9eb;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .icon-btn:hover {
+        background: var(--peach);
+      }
+
+      .banner-next:hover {
+        background: #fff;
+        transform: translateY(-50%) scale(1.08);
+      }
+    }
+
     @media (max-width: 850px) {
       nav {
         display: none;
@@ -1152,8 +1334,6 @@ padding: 4px;
     }
 
     @media (max-width: 600px) {
-    
-
       .logo strong {
         font-size: 1rem;
       }
@@ -1164,12 +1344,33 @@ padding: 4px;
 
       .hero {
         grid-template-columns: 1fr;
+        min-height: auto;
         margin: 12px;
-        padding: 30px 24px;
+        padding: 28px 22px;
+        gap: 22px;
+        border-radius: 22px;
       }
 
       .hero-image {
-        min-height: 220px;
+        height: 205px;
+        order: -1;
+      }
+
+      .hero h1 {
+        font-size: 2.15rem;
+      }
+
+      .hero-details {
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .hero-details strong {
+        font-size: 1rem;
+      }
+
+      .hero-details span {
+        font-size: .6rem;
       }
 
       .section {
@@ -1182,10 +1383,6 @@ padding: 4px;
 
       .section-heading p {
         margin-top: 10px;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
       }
 
       .products {
@@ -1208,104 +1405,192 @@ padding: 4px;
         height: 150px;
       }
 
+      #cartModal {
+        place-items: end center;
+        padding: 0;
+      }
+
+      #cartModal .modal-card {
+        width: 100%;
+        height: 92dvh;
+        max-height: 92dvh;
+        border-radius: 22px 22px 0 0;
+      }
+
+      #cartModal .modal-header {
+        padding: 17px 18px;
+      }
+
+      #cartItems {
+        max-height: 28dvh;
+        padding: 2px 18px 0;
+      }
+
       .cart-item {
-        grid-template-columns: 52px 1fr;
+        grid-template-columns: 60px minmax(0, 1fr);
+        gap: 11px;
+        padding: 13px 0;
       }
 
       .cart-art {
-        width: 52px;
-        height: 52px;
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
       }
 
       .cart-controls {
         grid-column: 2;
+        margin-top: 7px;
+        justify-content: flex-start;
+      }
+
+      #cartFooter {
+        padding: 0 18px 15px;
+      }
+
+      #checkoutArea {
+        padding: 18px;
       }
     }
-    /* Dark theme */
-body.dark-theme {
-  --cream: #211a1d;
-  --text: #f8e9eb;
-  --muted: #c7aeb3;
-  --line: #513d43;
-  --peach: #4a3038;
-  --pink: #643d48;
-  background: var(--cream);
+    body.dark-theme .modal {
+  background: #120d0fcc;
 }
-body.dark-theme .pagination button {
-  background: #302326;
-  border-color: var(--line);
+
+body.dark-theme .modal-card {
+  background: #211a1d;
+  color: var(--text);
+  scrollbar-color: #604951 #171113;
+}
+
+body.dark-theme .modal-card::-webkit-scrollbar,
+body.dark-theme #cartItems::-webkit-scrollbar,
+body.dark-theme #checkoutArea::-webkit-scrollbar {
+  width: 9px;
+}
+
+body.dark-theme .modal-card::-webkit-scrollbar-track,
+body.dark-theme #cartItems::-webkit-scrollbar-track,
+body.dark-theme #checkoutArea::-webkit-scrollbar-track {
+  background: #171113;
+}
+
+body.dark-theme .modal-card::-webkit-scrollbar-thumb,
+body.dark-theme #cartItems::-webkit-scrollbar-thumb,
+body.dark-theme #checkoutArea::-webkit-scrollbar-thumb {
+  border: 2px solid #171113;
+  border-radius: 999px;
+  background: #604951;
+}
+
+body.dark-theme .modal-card::-webkit-scrollbar-thumb:hover,
+body.dark-theme #cartItems::-webkit-scrollbar-thumb:hover,
+body.dark-theme #checkoutArea::-webkit-scrollbar-thumb:hover {
+  background: #cf7b8b;
+}
+
+body.dark-theme #cartModal .modal-card,
+body.dark-theme #cartModal .modal-header,
+body.dark-theme #cartModal #cartItems,
+body.dark-theme #cartModal #cartFooter {
+  background: #211a1d;
   color: var(--text);
 }
 
-body.dark-theme .pagination button.active {
+body.dark-theme #cartModal #checkoutArea {
+  background: #302326;
+  border-color: #604951;
+  color: var(--text);
+  scrollbar-color: #604951 #302326;
+}
+
+body.dark-theme #cartModal #cartItems {
+  scrollbar-color: #604951 #211a1d;
+}
+
+body.dark-theme #cartModal .payment-box {
+  background: #211a1d;
+  border-color: #604951;
+  color: var(--text);
+}
+
+.upi-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.copy-upi-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.copy-upi-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--dark);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.copy-upi-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.copy-upi-btn:hover {
   background: var(--dark);
   color: #fff;
 }
 
-body.dark-theme header {
-  background: #211a1dee;
+.copy-feedback {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 7px);
+  z-index: 5;
+  display: none;
+  width: max-content;
+  max-width: 180px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #503b42;
+  color: #fff;
+  font-size: .68rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px #0003;
 }
 
-body.dark-theme nav {
-  color: #e8cfd4;
+.copy-feedback.show {
+  display: block;
 }
 
-body.dark-theme .hero p {
-  color: #e2c8cd;
+.copy-feedback.error {
+  background: var(--danger);
 }
 
-body.dark-theme .search,
-body.dark-theme .sort,
-body.dark-theme .form-control,
-body.dark-theme .filter,
-body.dark-theme .product-card,
-body.dark-theme .admin-card,
-body.dark-theme .payment-box {
-  background: #302326;
-  color: var(--text);
+body.dark-theme .copy-upi-btn {
+  border-color: #cf7b8b;
+  color: #ffd0d7;
 }
 
-body.dark-theme .product-card,
-body.dark-theme .admin-card,
-body.dark-theme .payment-box,
-body.dark-theme .search,
-body.dark-theme .sort,
-body.dark-theme .form-control,
-body.dark-theme .filter {
-  border-color: var(--line);
+body.dark-theme .copy-upi-btn:hover {
+  background: #cf7b8b;
+  color: #211a1d;
 }
 
-body.dark-theme .badge {
-  background: #302326;
-  color: var(--text);
-}
-
-body.dark-theme .filter.active {
-  background: var(--peach);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .icon-btn:hover {
-    background: var(--peach);
-  }
-
-  .banner-next:hover {
-    background: #fff;
-    transform: translateY(-50%) scale(1.08);
-  }
-}
-
-body.dark-theme .modal {
-  background: #120d0fbb;
-}
-
-body.dark-theme footer {
-  background: #171113;
-}
-body.dark-theme .announcement {
-  background: #4a3038;
-  color: #f8e9eb;
-}
 
   </style>
 </head>
@@ -1332,7 +1617,6 @@ body.dark-theme .announcement {
       <nav>
         <a href="#home">Home</a>
         <a href="#shop">Shop</a>
-        <a href="#about">About</a>
         <a
           href="https://www.instagram.com/art_by_dishu06"
           target="_blank"
@@ -1342,31 +1626,46 @@ body.dark-theme .announcement {
       </nav>
 
       <div class="nav-actions">
-<button
-    class="icon-btn search-btn"
-    id="searchToggle"
-    type="button"
-    aria-label="Search artworks"
-    title="Search artworks">
-    🔍
-  </button>
+        <button
+          class="icon-btn search-btn"
+          id="searchToggle"
+          type="button"
+          aria-label="Search artworks"
+          title="Search artworks">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="m16 16 5 5"></path>
+          </svg>
+        </button>
 
-  <button
-  class="icon-btn theme-btn"
-  id="themeToggle"
-  type="button"
-  aria-label="Switch to dark theme"
-  title="Switch to dark theme">
-  ☀️
-</button>
+        <button
+          class="icon-btn theme-btn"
+          id="themeToggle"
+          type="button"
+          aria-label="Switch to dark theme"
+          title="Switch to dark theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m4.93 19.07 1.41-1.41"></path>
+            <path d="m17.66 6.34 1.41-1.41"></path>
+          </svg>
+        </button>
 
-
-  <button class="icon-btn" id="openCart" aria-label="Open cart">
-    🛒
-    <span class="cart-count" id="cartCount">0</span>
-  </button>
-</div>
-
+        <button class="icon-btn" id="openCart" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6"></path>
+            <circle cx="10" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -1374,14 +1673,43 @@ body.dark-theme .announcement {
     <section class="hero" id="home">
       <div class="hero-content">
         <div class="eyebrow">Resin art • Home décor • Custom orders</div>
+
         <h1>Resin Handmade Pieces,<br>Made With Heart.</h1>
+
         <p>
           Sweet, colourful and thoughtfully handmade resin creations by Dishu,
           from a small home studio.
         </p>
 
         <div class="hero-buttons">
-          <a class="btn btn-primary" href="#shop">See the collection</a>
+          <a class="btn btn-primary" href="#shop">
+            See the collection
+          </a>
+
+          <a
+            class="btn btn-outline"
+            href="https://www.instagram.com/art_by_dishu06"
+            target="_blank"
+            rel="noopener noreferrer">
+            Follow us on Instagram!
+          </a>
+        </div>
+
+        <div class="hero-details">
+          <div>
+            <strong>100%</strong>
+            <span>Handmade</span>
+          </div>
+
+          <div>
+            <strong>4.2K+</strong>
+            <span>Instagram family</span>
+          </div>
+
+          <div>
+            <strong>India</strong>
+            <span>Shipping available</span>
+          </div>
         </div>
       </div>
 
@@ -1392,19 +1720,18 @@ body.dark-theme .announcement {
     </section>
 
     <section class="banner">
-  <img id="bannerImage" alt="Art by Dishu banner">
+      <img id="bannerImage" alt="Art by Dishu banner">
 
-  <button
-    class="banner-next"
-    id="bannerNext"
-    type="button"
-    aria-label="Show next banner">
-    ›
-  </button>
+      <button
+        class="banner-next"
+        id="bannerNext"
+        type="button"
+        aria-label="Show next banner">
+        ›
+      </button>
 
-  <div class="dots" id="bannerDots"></div>
-</section>
-
+      <div class="dots" id="bannerDots"></div>
+    </section>
 
     <section class="section" id="shop">
       <div class="section-heading">
@@ -1412,6 +1739,7 @@ body.dark-theme .announcement {
           <div class="eyebrow">Available creations</div>
           <h2>Shop the pieces</h2>
         </div>
+
         <p>
           Small-batch handmade pieces made with care and packed from our
           home studio.
@@ -1433,13 +1761,13 @@ body.dark-theme .announcement {
       </div>
 
       <div class="pagination pagination-top" id="paginationTop"></div>
-
       <div class="filters" id="filters"></div>
       <div class="status" id="productStatus">Loading latest artworks...</div>
       <div class="products" id="products"></div>
-<div class="pagination" id="pagination"></div>
+      <div class="pagination" id="pagination"></div>
     </section>
 
+    <!-- Preserved for existing structure, hidden with CSS. -->
     <section class="section" id="about">
       <div class="about">
         <img
@@ -1469,10 +1797,12 @@ body.dark-theme .announcement {
               <strong>4.2K+</strong>
               <span>Instagram family</span>
             </div>
+
             <div>
               <strong>100%</strong>
               <span>Handmade</span>
             </div>
+
             <div>
               <strong>India</strong>
               <span>Shipping available</span>
@@ -1564,8 +1894,12 @@ body.dark-theme .announcement {
           </label>
 
           <div class="hero-buttons">
-            <button class="btn btn-primary" id="saveProduct">Save product</button>
-            <button class="btn btn-outline" id="clearProduct">Clear</button>
+            <button class="btn btn-primary" id="saveProduct">
+              Save product
+            </button>
+            <button class="btn btn-outline" id="clearProduct">
+              Clear
+            </button>
           </div>
 
           <div class="status" id="adminStatus"></div>
@@ -1625,7 +1959,10 @@ body.dark-theme .announcement {
         <textarea class="form-control" id="requestText"></textarea>
       </div>
 
-      <button class="btn btn-primary" id="submitFeature">Send request</button>
+      <button class="btn btn-primary" id="submitFeature">
+        Send request
+      </button>
+
       <div class="status" id="formStatus"></div>
     </div>
   </div>
@@ -1648,7 +1985,9 @@ body.dark-theme .announcement {
       </div>
 
       <button class="btn btn-primary" id="adminLogin">Login</button>
-      <button class="btn btn-outline" id="openPasswordModal">Change Password</button>
+      <button class="btn btn-outline" id="openPasswordModal">
+        Change Password
+      </button>
 
       <div class="status" id="adminLoginStatus"></div>
     </div>
@@ -1676,7 +2015,10 @@ body.dark-theme .announcement {
         <input class="form-control" id="confirmPassword" type="password">
       </div>
 
-      <button class="btn btn-primary" id="changePassword">Change Password</button>
+      <button class="btn btn-primary" id="changePassword">
+        Change Password
+      </button>
+
       <div class="status" id="passwordStatus"></div>
     </div>
   </div>
@@ -1684,12 +2026,11 @@ body.dark-theme .announcement {
   <div class="modal" id="cartModal" role="dialog" aria-modal="true">
     <div class="modal-card">
       <div class="modal-header">
-  <div>
-    <h2>Your Cart</h2>
-  </div>
-
-  <button class="close" data-close="cartModal">×</button>
-</div>
+        <div>
+          <h2>Your Cart</h2>
+        </div>
+        <button class="close" data-close="cartModal">×</button>
+      </div>
 
       <div id="cartItems"></div>
       <div id="cartFooter"></div>
@@ -1729,10 +2070,28 @@ body.dark-theme .announcement {
             src="YOUR_QR_IMAGE_URL"
             alt="UPI payment QR code">
 
-          <p>
-            UPI ID:
-            <strong>mohit.404@superyes</strong>
-          </p>
+          <p class="upi-row">
+  <span>UPI ID:</span>
+  <strong id="upiId">sharmadikshita283@okaxis</strong>
+
+  <span class="copy-upi-wrapper">
+    <button
+      class="copy-upi-btn"
+      id="copyUpiBtn"
+      type="button"
+      aria-label="Copy UPI ID"
+      title="Copy UPI ID">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+        <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+      </svg>
+    </button>
+
+    <span class="copy-feedback" id="copyFeedback" role="status"></span>
+  </span>
+</p>
+
+
 
           <p>
             After payment, send the screenshot or UTR number on Instagram.
@@ -1774,10 +2133,9 @@ body.dark-theme .announcement {
     let bannerIndex = 0;
     let bannerBusy = false;
     let selectedCategory = "All";
-let currentPage = 1;
-const PRODUCTS_PER_PAGE = 10;
-let photoIndex = {};
-
+    let currentPage = 1;
+    const PRODUCTS_PER_PAGE = 10;
+    let photoIndex = {};
     let adminToken = "";
     let adminProducts = [];
 
@@ -1794,12 +2152,29 @@ let photoIndex = {};
         "'": "&#039;"
       }[character]));
     }
-function titleCase(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/\b\w/g, character => character.toUpperCase());
-}
+
+    function titleCase(value) {
+      const smallWords = new Set([
+        "a", "an", "the", "and", "or", "but", "for", "of",
+        "with", "in", "on", "at", "to", "by", "from"
+      ]);
+
+      const words = String(value || "")
+        .trim()
+        .toLowerCase()
+        .split(/\s+/);
+
+      return words.map((word, index) => {
+        const firstOrLast =
+          index === 0 || index === words.length - 1;
+
+        if (!firstOrLast && smallWords.has(word)) {
+          return word;
+        }
+
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(" ");
+    }
 
     function normalize(value) {
       return String(value || "")
@@ -1839,17 +2214,20 @@ function titleCase(value) {
 
     function loadCart() {
       try {
-        const saved = JSON.parse(localStorage.getItem("dishuCart") || "[]");
+        const saved = JSON.parse(
+          localStorage.getItem("dishuCart") || "[]"
+        );
 
-        if (!Array.isArray(saved)) {
-          return [];
-        }
+        if (!Array.isArray(saved)) return [];
 
         return saved
           .filter(item => item && item.id && Number(item.quantity) > 0)
           .map(item => ({
             ...item,
-            quantity: Math.max(1, Math.floor(Number(item.quantity)))
+            quantity: Math.max(
+              1,
+              Math.floor(Number(item.quantity))
+            )
           }));
       } catch (error) {
         return [];
@@ -1910,118 +2288,117 @@ function titleCase(value) {
     }
 
     function renderBanner() {
-  if (!banners.length) {
-    $("bannerImage").removeAttribute("src");
-    $("bannerDots").replaceChildren();
-    return;
-  }
+      if (!banners.length) {
+        $("bannerImage").removeAttribute("src");
+        $("bannerDots").replaceChildren();
+        return;
+      }
 
-  if (bannerIndex >= banners.length) {
-    bannerIndex = 0;
-  }
+      if (bannerIndex >= banners.length) {
+        bannerIndex = 0;
+      }
 
-  $("bannerImage").src = banners[bannerIndex];
+      $("bannerImage").src = banners[bannerIndex];
 
-  $("bannerDots").replaceChildren(
-    ...banners.map((url, index) => {
-      const button = document.createElement("button");
+      $("bannerDots").replaceChildren(
+        ...banners.map((url, index) => {
+          const button = document.createElement("button");
 
-      button.className =
-        index === bannerIndex ? "active" : "";
+          button.className =
+            index === bannerIndex ? "active" : "";
 
-      button.dataset.banner = index;
-      button.setAttribute(
-        "aria-label",
-        "Banner " + (index + 1)
+          button.dataset.banner = index;
+          button.setAttribute(
+            "aria-label",
+            "Banner " + (index + 1)
+          );
+
+          return button;
+        })
       );
-
-      return button;
-    })
-  );
-}
-
+    }
 
     function changeBanner(index) {
-  if (
-    bannerBusy ||
-    index === bannerIndex ||
-    !banners[index]
-  ) {
-    return;
-  }
+      if (
+        bannerBusy ||
+        index === bannerIndex ||
+        !banners[index]
+      ) {
+        return;
+      }
 
-  bannerBusy = true;
+      bannerBusy = true;
 
-  const image = $("bannerImage");
-  const movingForward = index > bannerIndex ||
-    bannerIndex === banners.length - 1 && index === 0;
+      const image = $("bannerImage");
+      const movingForward =
+        index > bannerIndex ||
+        bannerIndex === banners.length - 1 && index === 0;
 
-  const exitClass = movingForward
-    ? "slide-out-left"
-    : "slide-out-right";
+      const exitClass = movingForward
+        ? "slide-out-left"
+        : "slide-out-right";
 
-  const enterClass = movingForward
-    ? "slide-in-right"
-    : "slide-in-left";
+      const enterClass = movingForward
+        ? "slide-in-right"
+        : "slide-in-left";
 
-  image.classList.remove(
-    "slide-out-left",
-    "slide-out-right",
-    "slide-in-left",
-    "slide-in-right"
-  );
+      image.classList.remove(
+        "slide-out-left",
+        "slide-out-right",
+        "slide-in-left",
+        "slide-in-right"
+      );
 
-  image.classList.add(exitClass);
+      image.classList.add(exitClass);
 
-  setTimeout(() => {
-    bannerIndex = index;
-    image.src = banners[bannerIndex];
+      setTimeout(() => {
+        bannerIndex = index;
+        image.src = banners[bannerIndex];
+        renderBanner();
 
-    renderBanner();
+        image.classList.remove(exitClass);
+        image.classList.add(enterClass);
 
-    image.classList.remove(exitClass);
-    image.classList.add(enterClass);
-
-    setTimeout(() => {
-      image.classList.remove(enterClass);
-      bannerBusy = false;
-    }, 430);
-  }, 280);
-}
-
+        setTimeout(() => {
+          image.classList.remove(enterClass);
+          bannerBusy = false;
+        }, 430);
+      }, 280);
+    }
 
     async function loadBanners() {
-  try {
-    const result = await api({ action: "getBanners" });
+      try {
+        const result = await api({ action: "getBanners" });
 
-    const validBanners = (result.data || [])
-      .map(item => {
-        if (typeof item === "string") {
-          return item.trim();
+        const validBanners = (result.data || [])
+          .map(item => {
+            if (typeof item === "string") {
+              return item.trim();
+            }
+
+            return String(item.url || item.URL || "").trim();
+          })
+          .filter(url => /^https:\/\/.+/i.test(url));
+
+        if (validBanners.length) {
+          banners = validBanners;
+          bannerIndex = 0;
+          renderBanner();
         }
-
-        return String(item.url || item.URL || "").trim();
-      })
-      .filter(url => /^https:\/\/.+/i.test(url));
-
-    if (validBanners.length) {
-      banners = validBanners;
-      bannerIndex = 0;
-      renderBanner();
+      } catch (error) {
+        console.warn("Using fallback banners:", error.message);
+        banners = [...FALLBACK_BANNERS];
+        bannerIndex = 0;
+        renderBanner();
+      }
     }
-  } catch (error) {
-    console.warn("Using fallback banners:", error.message);
-    banners = [...FALLBACK_BANNERS];
-    bannerIndex = 0;
-    renderBanner();
-  }
-}
-
 
     function renderFilters() {
       const categories = [
         "All",
-        ...new Set(artworks.map(product => product.category).filter(Boolean))
+        ...new Set(
+          artworks.map(product => product.category).filter(Boolean)
+        )
       ];
 
       $("filters").replaceChildren(
@@ -2029,7 +2406,8 @@ function titleCase(value) {
           const button = document.createElement("button");
 
           button.className =
-            "filter" + (category === selectedCategory ? " active" : "");
+            "filter" +
+            (category === selectedCategory ? " active" : "");
 
           button.textContent = category;
           button.dataset.category = category;
@@ -2063,167 +2441,165 @@ function titleCase(value) {
         }
       `;
     }
-function renderPagination(targetId, totalPages) {
-  const container = $(targetId);
 
-  if (!container || totalPages <= 1) {
-    if (container) {
-      container.replaceChildren();
-    }
+    function renderPagination(targetId, totalPages) {
+      const container = $(targetId);
 
-    return;
-  }
+      if (!container || totalPages <= 1) {
+        if (container) container.replaceChildren();
+        return;
+      }
 
-  container.innerHTML = `
-    <button
-      data-page="${currentPage - 1}"
-      ${currentPage === 1 ? "disabled" : ""}>
-      Previous
-    </button>
-
-    ${Array.from({ length: totalPages }, (_, index) => {
-      const page = index + 1;
-
-      return `
+      container.innerHTML = `
         <button
-          class="${page === currentPage ? "active" : ""}"
-          data-page="${page}">
-          ${page}
+          data-page="${currentPage - 1}"
+          ${currentPage === 1 ? "disabled" : ""}>
+          Previous
+        </button>
+
+        ${Array.from({ length: totalPages }, (_, index) => {
+          const page = index + 1;
+
+          return `
+            <button
+              class="${page === currentPage ? "active" : ""}"
+              data-page="${page}">
+              ${page}
+            </button>
+          `;
+        }).join("")}
+
+        <button
+          data-page="${currentPage + 1}"
+          ${currentPage === totalPages ? "disabled" : ""}>
+          Next
         </button>
       `;
-    }).join("")}
-
-    <button
-      data-page="${currentPage + 1}"
-      ${currentPage === totalPages ? "disabled" : ""}>
-      Next
-    </button>
-  `;
-}
+    }
 
     function renderProducts() {
-  const query = $("search").value.trim().toLowerCase();
-  const sort = $("sort").value;
+      const query = $("search").value.trim().toLowerCase();
+      const sort = $("sort").value;
 
-  let products = artworks.filter(product => {
-    const matchesCategory =
-      selectedCategory === "All" ||
-      product.category === selectedCategory;
+      let products = artworks.filter(product => {
+        const matchesCategory =
+          selectedCategory === "All" ||
+          product.category === selectedCategory;
 
-    const searchableText = [
-      product.name,
-      product.category,
-      product.description
-    ].join(" ").toLowerCase();
+        const searchableText = [
+          product.name,
+          product.category,
+          product.description
+        ].join(" ").toLowerCase();
 
-    return matchesCategory && searchableText.includes(query);
-  });
+        return matchesCategory && searchableText.includes(query);
+      });
 
-  if (sort === "low") {
-    products.sort((a, b) => actualPrice(a) - actualPrice(b));
-  }
+      if (sort === "low") {
+        products.sort((a, b) => actualPrice(a) - actualPrice(b));
+      }
 
-  if (sort === "high") {
-    products.sort((a, b) => actualPrice(b) - actualPrice(a));
-  }
+      if (sort === "high") {
+        products.sort((a, b) => actualPrice(b) - actualPrice(a));
+      }
 
-  if (sort === "featured") {
-    products.sort((a, b) => Number(b.featured) - Number(a.featured));
-  }
+      if (sort === "featured") {
+        products.sort((a, b) => Number(b.featured) - Number(a.featured));
+      }
 
-  if (!products.length) {
-    $("products").innerHTML =
-      "<p class=\"empty\">No artworks found.</p>";
+      if (!products.length) {
+        $("products").innerHTML =
+          "<p class=\"empty\">No artworks found.</p>";
 
-    $("pagination").replaceChildren();
-    $("paginationTop").replaceChildren();
-    return;
-  }
+        $("pagination").replaceChildren();
+        $("paginationTop").replaceChildren();
+        return;
+      }
 
-  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+      const totalPages = Math.ceil(
+        products.length / PRODUCTS_PER_PAGE
+      );
 
-  if (currentPage > totalPages) {
-    currentPage = totalPages;
-  }
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
 
-  const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const visibleProducts = products.slice(
-    start,
-    start + PRODUCTS_PER_PAGE
-  );
+      const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+      const visibleProducts = products.slice(
+        start,
+        start + PRODUCTS_PER_PAGE
+      );
 
-  $("products").innerHTML = visibleProducts.map(product => {
-    const outOfStock = Number(product.stock) <= 0;
+      $("products").innerHTML = visibleProducts.map(product => {
+        const outOfStock = Number(product.stock) <= 0;
 
-    return `
-      <article class="product-card">
-        ${
-          product.featured
-            ? "<span class=\"badge\">Featured</span>"
-            : ""
-        }
-
-        <div class="product-art">
-          ${renderGallery(product)}
-        </div>
-
-        <div class="product-info">
-          <span class="product-category">
-            ${escapeHtml(product.category)}
-          </span>
-
-          <h3>${escapeHtml(product.name)}</h3>
-
-          <p>
-            ${escapeHtml(
-              product.description || "Handmade with care."
-            )}
-          </p>
-
-          <div class="price">
-            ${money(actualPrice(product))}
+        return `
+          <article class="product-card">
             ${
-              product.salePrice && product.price
-                ? `<span class="old-price">${money(product.price)}</span>`
+              product.featured
+                ? "<span class=\"badge\">Featured</span>"
                 : ""
             }
-          </div>
 
-          <span class="stock ${outOfStock ? "out" : ""}">
-            ${
-              outOfStock
-                ? "Out of stock"
-                : Number(product.stock) <= 2
-                  ? "Only " + product.stock + " left"
-                  : "In stock"
-            }
-          </span>
+            <div class="product-art">
+              ${renderGallery(product)}
+            </div>
 
-          <div class="product-actions">
-            <button
-              class="btn btn-outline"
-              data-add="${escapeHtml(product.id)}"
-              ${outOfStock ? "disabled" : ""}>
-              Add to cart
-            </button>
+            <div class="product-info">
+              <span class="product-category">
+                ${escapeHtml(product.category)}
+              </span>
 
-            <button
-              class="btn btn-primary"
-              data-buy="${escapeHtml(product.id)}"
-              ${outOfStock ? "disabled" : ""}>
-              Enquire now
-            </button>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join("");
+              <h3>${escapeHtml(product.name)}</h3>
 
-    renderPagination("paginationTop", totalPages);
-  renderPagination("pagination", totalPages);
+              <p>
+                ${escapeHtml(
+                  product.description || "Handmade with care."
+                )}
+              </p>
 
-}
+              <div class="price">
+                ${money(actualPrice(product))}
+                ${
+                  product.salePrice && product.price
+                    ? `<span class="old-price">${money(product.price)}</span>`
+                    : ""
+                }
+              </div>
 
+              <span class="stock ${outOfStock ? "out" : ""}">
+                ${
+                  outOfStock
+                    ? "Out of stock"
+                    : Number(product.stock) <= 2
+                      ? "Only " + product.stock + " left"
+                      : "In stock"
+                }
+              </span>
+
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline"
+                  data-add="${escapeHtml(product.id)}"
+                  ${outOfStock ? "disabled" : ""}>
+                  Add to cart
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  data-buy="${escapeHtml(product.id)}"
+                  ${outOfStock ? "disabled" : ""}>
+                  Enquire now
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      renderPagination("paginationTop", totalPages);
+      renderPagination("pagination", totalPages);
+    }
 
     function reconcileCart() {
       cart = cart
@@ -2252,19 +2628,14 @@ function renderPagination(targetId, totalPages) {
         item => String(item.id) === String(id)
       );
 
-      if (!product || Number(product.stock) <= 0) {
-        return;
-      }
+      if (!product || Number(product.stock) <= 0) return;
 
       const existing = cart.find(
         item => String(item.id) === String(id)
       );
 
       if (existing) {
-        if (existing.quantity >= Number(product.stock)) {
-          return;
-        }
-
+        if (existing.quantity >= Number(product.stock)) return;
         existing.quantity += 1;
       } else {
         cart.push({
@@ -2285,9 +2656,7 @@ function renderPagination(targetId, totalPages) {
         cartItem => String(cartItem.id) === String(id)
       );
 
-      if (!product || !item) {
-        return;
-      }
+      if (!product || !item) return;
 
       item.quantity = Math.min(
         Number(product.stock),
@@ -2354,6 +2723,7 @@ function renderPagination(targetId, totalPages) {
           <span>Estimated total</span>
           <span>${money(total)}</span>
         </div>
+
         <p class="status">
           Final delivery charges and availability will be confirmed before payment.
         </p>
@@ -2362,33 +2732,48 @@ function renderPagination(targetId, totalPages) {
 
     async function loadProducts() {
       $("productStatus").textContent = "";
-  $("products").innerHTML =
-    '<p class="loading-products">Loading products...</p>';
-  $("pagination").replaceChildren();
-  $("paginationTop").replaceChildren();
+      $("products").innerHTML =
+        '<p class="loading-products">Loading products...</p>';
+      $("pagination").replaceChildren();
+      $("paginationTop").replaceChildren();
+
       try {
         const result = await api({ action: "getArtworks" });
 
         artworks = (result.data || [])
-  .map(item => ({
-    id: getField(item, "ID", "id"),
-    name: titleCase(getField(item, "NAME", "name")),
-    category: titleCase(getField(item, "CATEGORY", "category")),
-    price: Number(getField(item, "PRICE", "price") || 0),
-    salePrice: Number(
-      getField(item, "SALE PRICE", "SALEPRICE", "salePrice") || 0
-    ),
-    stock: Math.max(
-      0,
-      Math.floor(Number(getField(item, "STOCK", "stock") || 0))
-    ),
-    description: getField(item, "DESCRIPTION", "description"),
-    imageUrl: getField(item, "IMAGE", "IMAGE URL", "PHOTOS"),
-    featured:
-      String(getField(item, "FEATURED", "featured")).toLowerCase() === "true"
-  }))
-  .filter(item => item.id && item.name);
-
+          .map(item => ({
+            id: getField(item, "ID", "id"),
+            name: titleCase(getField(item, "NAME", "name")),
+            category: titleCase(getField(item, "CATEGORY", "category")),
+            price: Number(
+              getField(item, "PRICE", "price") || 0
+            ),
+            salePrice: Number(
+              getField(item, "SALE PRICE", "SALEPRICE", "salePrice") || 0
+            ),
+            stock: Math.max(
+              0,
+              Math.floor(
+                Number(getField(item, "STOCK", "stock") || 0)
+              )
+            ),
+            description: getField(
+              item,
+              "DESCRIPTION",
+              "description"
+            ),
+            imageUrl: getField(
+              item,
+              "IMAGE",
+              "IMAGE URL",
+              "PHOTOS"
+            ),
+            featured:
+              String(
+                getField(item, "FEATURED", "featured")
+              ).toLowerCase() === "true"
+          }))
+          .filter(item => item.id && item.name);
 
         reconcileCart();
         saveCart();
@@ -2397,16 +2782,15 @@ function renderPagination(targetId, totalPages) {
         renderFilters();
         renderProducts();
       } catch (error) {
-  $("products").innerHTML =
-    '<p class="empty">Unable to load products. Please try again.</p>';
+        $("products").innerHTML =
+          '<p class="empty">Unable to load products. Please try again.</p>';
 
-  $("pagination").replaceChildren();
-$("paginationTop").replaceChildren();
+        $("pagination").replaceChildren();
+        $("paginationTop").replaceChildren();
 
-  $("productStatus").textContent =
-    "Unable to load products: " + error.message;
-}
-
+        $("productStatus").textContent =
+          "Unable to load products: " + error.message;
+      }
     }
 
     async function submitFeature() {
@@ -2426,120 +2810,165 @@ $("paginationTop").replaceChildren();
         $("formStatus").textContent = error.message;
       }
     }
+async function copyText(text) {
+  let clipboardError;
 
-    async function submitOrder() {
-  if (!cart.length) {
-    $("orderStatus").textContent = "Your cart is empty.";
-    return;
-  }
-
-  const name = $("orderName").value.trim();
-  const email = $("orderEmail").value.trim();
-  const phone = $("orderPhone").value.trim();
-  const address = $("orderAddress").value.trim();
-
-  if (!name || !phone || !address) {
-    $("orderStatus").textContent =
-      "Please fill in your name, phone and delivery address.";
-    return;
-  }
-
-  const selectedProducts = cart.map((item, index) => {
-    const price = actualPrice(item);
-
-    return `${index + 1}. ${item.name} × ${item.quantity} — ${money(
-      price * item.quantity
-    )}`;
-  }).join("\n");
-
-  const message = [
-    "Hi, I want to enquire about:",
-    "",
-    selectedProducts,
-    "",
-    "My details:",
-    `Name: ${name}`,
-    `Email: ${email || "Not provided"}`,
-    `Phone: ${phone}`,
-    `Address: ${address}`,
-    "",
-    "Please confirm availability and charges."
-  ].join("\n");
-
-  try {
-    await copyMessage(message);
-
-    $("orderStatus").textContent =
-      "Your enquiry was copied. Paste it in the Instagram DM that opened.";
-
-    window.open(
-      "https://ig.me/m/art_by_dishu06",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  } catch (error) {
-    $("orderStatus").textContent =
-      "Please copy the enquiry message and send it on Instagram.";
-  }
-}
-
-async function copyMessage(message) {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(message);
-    return;
+  if (navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (error) {
+      clipboardError = error;
+    }
   }
 
   const textarea = document.createElement("textarea");
 
-  textarea.value = message;
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
   textarea.style.position = "fixed";
+  textarea.style.top = "0";
+  textarea.style.left = "-9999px";
+  textarea.style.width = "1px";
+  textarea.style.height = "1px";
   textarea.style.opacity = "0";
 
   document.body.appendChild(textarea);
+  textarea.focus();
   textarea.select();
+  textarea.setSelectionRange(0, text.length);
 
-  const copied = document.execCommand("copy");
+  let copied = false;
+
+  try {
+    copied = document.execCommand("copy");
+  } catch (error) {
+    copied = false;
+  }
 
   textarea.remove();
 
-  if (!copied) {
-    throw new Error("Copy failed.");
+  if (copied) {
+    return true;
   }
+
+  throw clipboardError || new Error("Clipboard permission denied.");
 }
 
-    async function login() {
-  $("adminLoginStatus").textContent = "";
 
-  try {
-    const result = await api({
-      action: "login",
-      username: $("adminUsername").value.trim(),
-      password: $("adminPassword").value
-    });
+    async function submitOrder() {
+      if (!cart.length) {
+        $("orderStatus").textContent = "Your cart is empty.";
+        return;
+      }
 
-    const token = result &&
-      result.data &&
-      result.data.token;
+      const name = $("orderName").value.trim();
+      const email = $("orderEmail").value.trim();
+      const phone = $("orderPhone").value.trim();
+      const address = $("orderAddress").value.trim();
 
-    if (!token) {
-      throw new Error("Login succeeded, but no admin session was returned.");
+      if (!name || !phone || !address) {
+        $("orderStatus").textContent =
+          "Please fill in your name, phone and delivery address.";
+        return;
+      }
+
+      const selectedProducts = cart.map((item, index) => {
+        const price = actualPrice(item);
+
+        return `${index + 1}. ${item.name} × ${item.quantity} — ${money(
+          price * item.quantity
+        )}`;
+      }).join("\n");
+
+      const message = [
+        "Hi, I want to enquire about:",
+        "",
+        selectedProducts,
+        "",
+        "My details:",
+        `Name: ${name}`,
+        `Email: ${email || "Not provided"}`,
+        `Phone: ${phone}`,
+        `Address: ${address}`,
+        "",
+        "Please confirm availability and charges."
+      ].join("\n");
+
+      try {
+        await copyMessage(message);
+
+        $("orderStatus").textContent =
+          "Your enquiry was copied. Paste it in the Instagram DM that opened.";
+
+        window.open(
+          "https://ig.me/m/art_by_dishu06",
+          "_blank",
+          "noopener,noreferrer"
+        );
+      } catch (error) {
+        $("orderStatus").textContent =
+          "Please copy the enquiry message and send it on Instagram.";
+      }
     }
 
-    adminToken = token;
+    async function copyMessage(message) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(message);
+        return;
+      }
 
-    $("adminUsername").value = "";
-    $("adminPassword").value = "";
+      const textarea = document.createElement("textarea");
 
-    closeModal("loginModal");
-    $("adminSection").classList.add("visible");
+      textarea.value = message;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
 
-    await loadAdminProducts();
-    $("adminSection").scrollIntoView({ behavior: "smooth" });
-  } catch (error) {
-    $("adminLoginStatus").textContent = error.message;
-  }
-}
+      document.body.appendChild(textarea);
+      textarea.select();
 
+      const copied = document.execCommand("copy");
+      textarea.remove();
+
+      if (!copied) {
+        throw new Error("Copy failed.");
+      }
+    }
+
+    async function login() {
+      $("adminLoginStatus").textContent = "";
+
+      try {
+        const result = await api({
+          action: "login",
+          username: $("adminUsername").value.trim(),
+          password: $("adminPassword").value
+        });
+
+        const token = result &&
+          result.data &&
+          result.data.token;
+
+        if (!token) {
+          throw new Error(
+            "Login succeeded, but no admin session was returned."
+          );
+        }
+
+        adminToken = token;
+
+        $("adminUsername").value = "";
+        $("adminPassword").value = "";
+
+        closeModal("loginModal");
+        $("adminSection").classList.add("visible");
+
+        await loadAdminProducts();
+        $("adminSection").scrollIntoView({ behavior: "smooth" });
+      } catch (error) {
+        $("adminLoginStatus").textContent = error.message;
+      }
+    }
 
     async function loadAdminProducts() {
       try {
@@ -2576,22 +3005,23 @@ async function copyMessage(message) {
         item => String(getField(item, "ID", "id")) === String(id)
       );
 
-      if (!product) {
-        return;
-      }
+      if (!product) return;
 
       $("adminProductId").value = getField(product, "ID", "id");
       $("adminProductName").value = getField(product, "NAME", "name");
-      $("adminProductCategory").value = getField(product, "CATEGORY", "category");
-      $("adminProductPrice").value = getField(product, "PRICE", "price");
+      $("adminProductCategory").value =
+        getField(product, "CATEGORY", "category");
+      $("adminProductPrice").value =
+        getField(product, "PRICE", "price");
       $("adminProductSalePrice").value =
         getField(product, "SALE PRICE", "SALEPRICE", "salePrice");
-      $("adminProductStock").value = getField(product, "STOCK", "stock");
+      $("adminProductStock").value =
+        getField(product, "STOCK", "stock");
       $("adminProductDescription").value =
         getField(product, "DESCRIPTION", "description");
       $("adminProductFeatured").checked =
-        String(getField(product, "FEATURED", "featured")).toLowerCase() ===
-        "true";
+        String(getField(product, "FEATURED", "featured"))
+          .toLowerCase() === "true";
 
       $("adminSection").scrollIntoView({ behavior: "smooth" });
     }
@@ -2701,68 +3131,101 @@ async function copyMessage(message) {
     }
 
     function toggleScroll() {
-  const maximumScroll =
-    document.documentElement.scrollHeight - window.innerHeight;
+      const maximumScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-  const isAboveMiddle = window.scrollY < maximumScroll / 2;
+      const isAboveMiddle =
+        window.scrollY < maximumScroll / 2;
 
-  window.scrollTo({
-    top: isAboveMiddle ? maximumScroll : 0,
-    behavior: "smooth"
-  });
-}
-
+      window.scrollTo({
+        top: isAboveMiddle ? maximumScroll : 0,
+        behavior: "smooth"
+      });
+    }
 
     $("adminHotspot").addEventListener("click", () => {
       openModal("loginModal");
       $("adminUsername").focus();
     });
-// Every new page visit starts in light mode.
-document.body.classList.remove("dark-theme");
 
-$("themeToggle").addEventListener("click", () => {
-  const isDark = document.body.classList.toggle("dark-theme");
-  const button = $("themeToggle");
+    document.body.classList.remove("dark-theme");
 
-  button.textContent = isDark ? "🌙" : "☀️";
-  button.setAttribute(
-    "aria-label",
-    isDark ? "Switch to light theme" : "Switch to dark theme"
-  );
-  button.setAttribute(
-    "title",
-    isDark ? "Switch to light theme" : "Switch to dark theme"
-  );
-});
-$("searchToggle").addEventListener("click", () => {
-  $("shop").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+    $("themeToggle").addEventListener("click", () => {
+      const isDark =
+        document.body.classList.toggle("dark-theme");
 
-  setTimeout(() => {
-    $("search").focus();
-  }, 450);
-});
+      const button = $("themeToggle");
+
+      $("themeIcon").outerHTML = isDark
+        ? `
+          <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"></path>
+          </svg>
+        `
+        : `
+          <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m4.93 19.07 1.41-1.41"></path>
+            <path d="m17.66 6.34 1.41-1.41"></path>
+          </svg>
+        `;
+
+      button.setAttribute(
+        "aria-label",
+        isDark
+          ? "Switch to light theme"
+          : "Switch to dark theme"
+      );
+
+      button.setAttribute(
+        "title",
+        isDark
+          ? "Switch to light theme"
+          : "Switch to dark theme"
+      );
+    });
+
+    $("searchToggle").addEventListener("click", () => {
+      $("shop").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      setTimeout(() => {
+        $("search").focus();
+      }, 450);
+    });
 
     $("adminLogin").addEventListener("click", login);
-    $("openFeature").addEventListener("click", () => openModal("featureModal"));
+    $("openFeature").addEventListener(
+      "click",
+      () => openModal("featureModal")
+    );
     $("submitFeature").addEventListener("click", submitFeature);
+
     $("openPasswordModal").addEventListener("click", () => {
       closeModal("loginModal");
       openModal("passwordModal");
     });
+
     $("changePassword").addEventListener("click", changePassword);
     $("saveProduct").addEventListener("click", saveProduct);
     $("clearProduct").addEventListener("click", clearProductForm);
     $("logout").addEventListener("click", logout);
     $("submitOrder").addEventListener("click", submitOrder);
     $("scrollTop").addEventListener("click", toggleScroll);
-$("bannerNext").addEventListener("click", () => {
-  if (banners.length > 1) {
-    changeBanner((bannerIndex + 1) % banners.length);
-  }
-});
+
+    $("bannerNext").addEventListener("click", () => {
+      if (banners.length > 1) {
+        changeBanner((bannerIndex + 1) % banners.length);
+      }
+    });
 
     $("openCart").addEventListener("click", () => {
       reconcileCart();
@@ -2771,15 +3234,14 @@ $("bannerNext").addEventListener("click", () => {
     });
 
     $("search").addEventListener("input", () => {
-  currentPage = 1;
-  renderProducts();
-});
+      currentPage = 1;
+      renderProducts();
+    });
 
-$("sort").addEventListener("change", () => {
-  currentPage = 1;
-  renderProducts();
-});
-
+    $("sort").addEventListener("change", () => {
+      currentPage = 1;
+      renderProducts();
+    });
 
     document.addEventListener("click", event => {
       const element = event.target;
@@ -2793,25 +3255,25 @@ $("sort").addEventListener("change", () => {
       }
 
       if (element.dataset.category) {
-  selectedCategory = element.dataset.category;
-  currentPage = 1;
-  renderFilters();
-  renderProducts();
-}
-if (element.dataset.page) {
-  const page = Number(element.dataset.page);
+        selectedCategory = element.dataset.category;
+        currentPage = 1;
+        renderFilters();
+        renderProducts();
+      }
 
-  if (page > 0) {
-    currentPage = page;
-    renderProducts();
+      if (element.dataset.page) {
+        const page = Number(element.dataset.page);
 
-    $("shop").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-}
+        if (page > 0) {
+          currentPage = page;
+          renderProducts();
 
+          $("shop").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      }
 
       if (element.dataset.banner) {
         changeBanner(Number(element.dataset.banner));
@@ -2858,12 +3320,36 @@ if (element.dataset.page) {
       if (element.dataset.edit) {
         editProduct(element.dataset.edit);
       }
-    });
+        });
+
+    $("copyUpiBtn").addEventListener("click", async () => {
+  const upiId = $("upiId").textContent.trim();
+  const feedback = $("copyFeedback");
+
+  feedback.className = "copy-feedback";
+
+  try {
+    await copyText(upiId);
+    feedback.textContent = "UPI ID copied";
+    feedback.classList.add("show");
+    } catch (error) {
+    feedback.textContent = "Copy blocked. Long-press the UPI ID to copy.";
+    feedback.classList.add("show", "error");
+  }
+
+
+  setTimeout(() => {
+    feedback.classList.remove("show", "error");
+    feedback.textContent = "";
+  }, 2200);
+});
+
 
     renderBanner();
     loadBanners();
     saveCart();
     loadProducts();
+
 
     setInterval(() => {
       if (!bannerBusy && banners.length > 1) {
