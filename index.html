@@ -21,8 +21,7 @@
   --text: #443539;
   --muted: #927b80;
   --line: #f1dfe1;
-  --danger: #a33d52;
-
+  
   --scrollbar-track: #fffaf8;
   --scrollbar-thumb: #e5b2bb;
   --scrollbar-thumb-hover: #cf7b8b;
@@ -35,18 +34,23 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
 html {
   scroll-behavior: smooth;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   scrollbar-width: thin;
 }
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-* {
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-  scrollbar-width: thin;
+.modal,
+.modal-card,
+#cartItems,
+#checkoutArea {
+  scrollbar-gutter: auto;
 }
 
 *::-webkit-scrollbar {
@@ -155,16 +159,16 @@ html {
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
     }
 
     .logo strong {
-      display: block;
-      white-space: nowrap;
-      font: 700 1.15rem "Playfair Display", serif;
-    }
+  display: block;
+  white-space: nowrap;
+  font: 700 1.15rem "DM Serif Display", serif;
+}
 
     .logo small {
       display: block;
@@ -259,32 +263,32 @@ html {
     }
 
     .hero {
-  width: min(1100px, calc(100% - 24px));
-  min-height: 340px;
-  margin: 18px auto 0;
-  padding: 34px 6%;
+  width: min(1040px, calc(100% - 28px));
+  min-height: 250px;
+  margin: 14px auto 0;
+  padding: 25px 5%;
   display: grid;
-  grid-template-columns: 1.05fr .95fr;
+  grid-template-columns: 1fr .78fr;
   align-items: center;
-  gap: 42px;
-  border: 0;
-  border-radius: 26px;
-  background: linear-gradient(135deg, var(--peach), var(--pink));
-  box-shadow: none;
+  gap: 30px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #ffe7df, #f8c7ce);
 }
 
 
+
     .hero-content {
-      max-width: 600px;
+      max-width: 510px;
     }
 
-    .eyebrow {
-      color: var(--dark);
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
+   .eyebrow {
+  color: var(--dark);
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
 
     h1,
     h2,
@@ -294,30 +298,31 @@ html {
     }
 
     h1 {
-      max-width: 520px;
-      margin: 10px 0 12px;
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      line-height: 1.15;
-    }
+  max-width: 470px;
+  margin: 7px 0 9px;
+  font-size: clamp(1.65rem, 3.2vw, 2.45rem);
+  line-height: 1.08;
+}
+
 
     h2 {
       font-size: clamp(2rem, 4vw, 2.8rem);
     }
+.hero p {
+  max-width: 410px;
+  color: #725960;
+  font-size: .8rem;
+  line-height: 1.5;
+}
 
-    .hero p {
-      max-width: 460px;
-      margin: 0;
-      color: #725960;
-      font-size: .92rem;
-    }
+.hero-buttons,
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 13px;
+}
 
-    .hero-buttons,
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
 
     .btn {
       display: inline-flex;
@@ -340,27 +345,23 @@ html {
       color: var(--dark);
     }
 
-    .hero-image {
+   .hero-image {
   width: 100%;
-  height: 265px;
-  min-height: 0;
+  height: 190px;
   display: block;
-  border: 0;
-  border-radius: 20px;
+  border-radius: 16px;
   object-fit: cover;
   background: transparent;
-  box-shadow: none;
 }
 
-
     .hero-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      margin-top: 24px;
-      padding-top: 16px;
-      border-top: 1px solid #ffffff80;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  margin-top: 17px;
+  padding-top: 12px;
+  border-top: 1px solid #ffffff80;
+}
 
     .hero-details div {
       display: flex;
@@ -369,17 +370,17 @@ html {
     }
 
     .hero-details strong {
-      color: var(--dark);
-      font-family: "DM Serif Display", serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      line-height: 1;
-    }
+  color: var(--dark);
+  font-family: "DM Serif Display", serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
 
-    .hero-details span {
-      color: #765c62;
-      font-size: .68rem;
-    }
+.hero-details span {
+  color: #765c62;
+  font-size: .6rem;
+}
 
     .banner {
       position: relative;
@@ -592,13 +593,20 @@ html {
     }
 
     .product-info p {
-      min-height: 58px;
-      color: var(--muted);
-      font-size: .78rem;
-    }
+  min-height: 0;
+  margin: 3px 0 2px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
     .price {
-      margin: 8px 0;
+  margin: 4px 0 7px;
+
       color: var(--text);
       font-family: "Manrope", sans-serif;
       font-size: .95rem;
@@ -628,17 +636,6 @@ html {
       font-weight: 700;
     }
 
-    .stock {
-      margin: 7px 0;
-      color: var(--muted);
-      font-size: .75rem;
-      font-weight: 600;
-    }
-
-    .stock.out {
-      color: var(--danger);
-    }
-
     .product-actions {
       display: flex;
       gap: 6px;
@@ -650,6 +647,20 @@ html {
       padding: 8px 5px;
       font-size: .74rem;
     }
+.enquiry-information {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cream);
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+body.dark-theme .enquiry-information {
+  background: #211a1d;
+  color: var(--muted);
+}
 
     /* The original About markup is preserved but hidden. */
     #about {
@@ -693,6 +704,22 @@ html {
       color: #ead9dc;
       font-size: .82rem;
     }
+.footer-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.footer-contact-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
     .copyright {
       margin-top: 30px;
@@ -765,15 +792,16 @@ html {
     }
 
     .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 50;
-      display: none;
-      place-items: center;
-      padding: 12px;
-      background: #3c272c99;
-      overflow: hidden;
-    }
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  place-items: center;
+  padding: 12px;
+  background: #3c272c99;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
     .modal.open {
       display: grid;
@@ -811,6 +839,12 @@ html {
     .form-group {
       margin: 14px 0;
     }
+.form-help {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: .7rem;
+}
 
     .form-group label {
       display: block;
@@ -1205,10 +1239,6 @@ body.dark-theme .hero-image {
       color: #443539;
     }
 
-    body.dark-theme .modal {
-      background: #120d0fbb;
-    }
-
     body.dark-theme footer {
       background: #171113;
     }
@@ -1229,14 +1259,6 @@ body.dark-theme .hero-image {
 
     body.dark-theme .hero-details span {
       color: #e2c8cd;
-    }
-
-    body.dark-theme #cartModal .modal-card,
-    body.dark-theme #cartModal .modal-header,
-    body.dark-theme #cartModal #cartItems,
-    body.dark-theme #cartModal #cartFooter {
-      background: #211a1d;
-      color: #f8e9eb;
     }
 
     body.dark-theme #cartModal #checkoutArea {
@@ -1264,12 +1286,6 @@ body.dark-theme .hero-image {
 
     body.dark-theme #cartModal .form-control::placeholder {
       color: #a98f96;
-    }
-
-    body.dark-theme #cartModal .payment-box {
-      background: #211a1d;
-      border-color: #604951;
-      color: #f8e9eb;
     }
 
     body.dark-theme #cartModal .cart-art {
@@ -1309,6 +1325,169 @@ body.dark-theme .hero-image {
     }
 
     @media (hover: hover) and (pointer: fine) {
+    .product-cart-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product-cart-control .btn {
+      flex: 1;
+    }
+
+    .product-quantity {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .product-quantity button {
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      font-size: .9rem;
+    }
+
+    .product-quantity button:hover {
+      background: var(--pink);
+    }
+
+    .product-quantity span {
+      min-width: 20px;
+      text-align: center;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .instagram-icon {
+      width: 15px;
+      height: 15px;
+      flex: 0 0 15px;
+      display: inline-block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .floating-cart {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: min(50vw, 360px);
+      min-height: 58px;
+      padding: 8px 10px 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fffaf8f5;
+      box-shadow: 0 8px 28px #503b4230;
+      transform: translate(-50%, 130%);
+      transition: transform .25s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .floating-cart.visible {
+      transform: translate(-50%, 0);
+    }
+
+    .floating-cart-thumbnails {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .floating-cart-thumb {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      margin-left: -7px;
+      border: 2px solid var(--cream);
+      border-radius: 11px;
+      object-fit: contain;
+      background: var(--pink);
+    }
+
+    .floating-cart-thumb:first-child {
+      margin-left: 0;
+    }
+
+    .floating-cart-more {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      margin-left: -7px;
+      border: 2px solid var(--cream);
+      border-radius: 11px;
+      background: var(--dark);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .floating-cart-summary {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .floating-cart-summary strong,
+    .floating-cart-summary span {
+      display: block;
+    }
+
+    .floating-cart-summary strong {
+      overflow: hidden;
+      font-size: .78rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .floating-cart-summary span {
+      color: var(--muted);
+      font-size: .68rem;
+    }
+
+    .floating-cart-button {
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--dark);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    body.dark-theme .floating-cart {
+      background: #211a1df5;
+      border-color: var(--line);
+    }
+
+    body.dark-theme .floating-cart-thumb {
+      border-color: #211a1d;
+    }
+
+    body.dark-theme .product-quantity button {
+      background: #302326;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+
       .icon-btn:hover {
         background: var(--peach);
       }
@@ -1343,27 +1522,28 @@ body.dark-theme .hero-image {
       }
 
       .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        margin: 12px;
-        padding: 28px 22px;
-        gap: 22px;
-        border-radius: 22px;
-      }
+    grid-template-columns: 1fr;
+    min-height: auto;
+    margin: 10px 12px 0;
+    padding: 22px 18px;
+    gap: 16px;
+    border-radius: 18px;
+  }
 
-      .hero-image {
-        height: 205px;
-        order: -1;
-      }
+  .hero-image {
+    height: 145px;
+    order: -1;
+    border-radius: 14px;
+  }
 
-      .hero h1 {
-        font-size: 2.15rem;
-      }
+  .hero h1 {
+    font-size: 1.85rem;
+  }
 
-      .hero-details {
-        gap: 15px;
-        margin-top: 20px;
-      }
+  .hero-details {
+    gap: 12px;
+    margin-top: 15px;
+  }
 
       .hero-details strong {
         font-size: 1rem;
@@ -1451,6 +1631,20 @@ body.dark-theme .hero-image {
       #checkoutArea {
         padding: 18px;
       }
+      .floating-cart {
+  bottom: 12px;
+  width: calc(100% - 20px);
+}
+
+.floating-cart-button {
+  padding: 9px 11px;
+}
+
+.product-quantity button {
+  width: 25px;
+  flex-basis: 25px;
+}
+
     }
     body.dark-theme .modal {
   background: #120d0fcc;
@@ -1513,33 +1707,6 @@ body.dark-theme #cartModal .payment-box {
   color: var(--text);
 }
 
-.upi-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.copy-upi-wrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.copy-upi-btn {
-  width: 28px;
-  height: 28px;
-  display: inline-grid;
-  place-items: center;
-  padding: 0;
-  border: 1px solid var(--dark);
-  border-radius: 7px;
-  background: transparent;
-  color: var(--dark);
-  cursor: pointer;
-}
-
 .copy-upi-btn svg {
   width: 15px;
   height: 15px;
@@ -1553,24 +1720,6 @@ body.dark-theme #cartModal .payment-box {
 .copy-upi-btn:hover {
   background: var(--dark);
   color: #fff;
-}
-
-.copy-feedback {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 7px);
-  z-index: 5;
-  display: none;
-  width: max-content;
-  max-width: 180px;
-  padding: 5px 8px;
-  border-radius: 6px;
-  background: #503b42;
-  color: #fff;
-  font-size: .68rem;
-  line-height: 1.2;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px #0003;
 }
 
 .copy-feedback.show {
@@ -1702,7 +1851,7 @@ body.dark-theme .copy-upi-btn:hover {
           </div>
 
           <div>
-            <strong>4.2K+</strong>
+            <strong id="instagramFollowersHero">—</strong>
             <span>Instagram family</span>
           </div>
 
@@ -1794,7 +1943,7 @@ body.dark-theme .copy-upi-btn:hover {
 
           <div class="stats">
             <div>
-              <strong>4.2K+</strong>
+              <strong id="instagramFollowersAbout">—</strong>
               <span>Instagram family</span>
             </div>
 
@@ -1813,7 +1962,6 @@ body.dark-theme .copy-upi-btn:hover {
     </section>
 
     <section class="contact">
-      <div class="eyebrow">Have something in mind?</div>
       <h2>Let’s create something special.</h2>
       <p>Have an idea for a product? Tell us about it.</p>
 
@@ -1844,6 +1992,37 @@ body.dark-theme .copy-upi-btn:hover {
 
       <div class="admin-layout">
         <div class="admin-card">
+  <h3>Instagram display</h3>
+
+  <div class="form-group">
+    <label for="adminInstagramFollowers">
+      Instagram followers
+    </label>
+
+    <input
+      class="form-control"
+      id="adminInstagramFollowers"
+      type="number"
+      min="0"
+      step="1"
+      placeholder="Example: 4300">
+
+    <small class="form-help">
+      Enter the current follower count. It will display as 4.3K+.
+    </small>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    id="saveInstagramFollowers"
+    type="button">
+    Save Instagram count
+  </button>
+
+  <div class="status" id="instagramStatus"></div>
+</div>
+
+        <div class="admin-card">
           <h3>Add or edit product</h3>
 
           <input id="adminProductId" type="hidden">
@@ -1866,11 +2045,6 @@ body.dark-theme .copy-upi-btn:hover {
           <div class="form-group">
             <label for="adminProductSalePrice">Sale price</label>
             <input class="form-control" id="adminProductSalePrice" type="number" min="0">
-          </div>
-
-          <div class="form-group">
-            <label for="adminProductStock">Stock</label>
-            <input class="form-control" id="adminProductStock" type="number" min="0">
           </div>
 
           <div class="form-group">
@@ -1921,15 +2095,32 @@ body.dark-theme .copy-upi-btn:hover {
       </div>
 
       <div>
-        <strong>Connect</strong>
-        <a
-          href="https://www.instagram.com/art_by_dishu06"
-          target="_blank"
-          rel="noopener noreferrer">
-          @art_by_dishu06
-        </a>
-        <a href="mailto:artbydishu@gmail.com">artbydishu@gmail.com</a>
-      </div>
+  <strong>Connect</strong>
+
+  <a
+    class="footer-contact-link"
+    href="https://www.instagram.com/art_by_dishu06"
+    target="_blank"
+    rel="noopener noreferrer">
+    <svg class="footer-contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+      <circle cx="12" cy="12" r="4"></circle>
+      <circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"></circle>
+    </svg>
+    @art_by_dishu06
+  </a>
+
+  <a
+    class="footer-contact-link"
+    href="mailto:artbydishu@gmail.com">
+    <svg class="footer-contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <path d="m4 7 8 6 8-6"></path>
+    </svg>
+    artbydishu@gmail.com
+  </a>
+</div>
+
     </div>
 
     <div class="copyright">
@@ -2057,55 +2248,35 @@ body.dark-theme .copy-upi-btn:hover {
           <label for="orderAddress">Delivery address</label>
           <textarea class="form-control" id="orderAddress"></textarea>
         </div>
-
-        <div class="payment-box">
-          <strong>Payment after enquiry confirmation</strong>
-          <p>
-            Please send payment only after we confirm availability and
-            delivery charges.
-          </p>
-
-          <img
-            class="payment-qr"
-            src="YOUR_QR_IMAGE_URL"
-            alt="UPI payment QR code">
-
-          <p class="upi-row">
-  <span>UPI ID:</span>
-  <strong id="upiId">sharmadikshita283@okaxis</strong>
-
-  <span class="copy-upi-wrapper">
-    <button
-      class="copy-upi-btn"
-      id="copyUpiBtn"
-      type="button"
-      aria-label="Copy UPI ID"
-      title="Copy UPI ID">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="8" y="8" width="11" height="11" rx="2"></rect>
-        <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
-      </svg>
-    </button>
-
-    <span class="copy-feedback" id="copyFeedback" role="status"></span>
-  </span>
+<p class="enquiry-information">
+  Your enquiry message will be copied automatically. After clicking the
+  button below, paste the message into our Instagram chat.
 </p>
 
-
-
-          <p>
-            After payment, send the screenshot or UTR number on Instagram.
-          </p>
-        </div>
-
         <button class="btn btn-primary" id="submitOrder">
-          Submit enquiry
-        </button>
+  Copy message & open Instagram
+</button>
+
 
         <div class="status" id="orderStatus"></div>
       </div>
     </div>
   </div>
+<div class="floating-cart" id="floatingCart" aria-live="polite">
+  <div class="floating-cart-thumbnails" id="floatingCartThumbnails"></div>
+
+  <div class="floating-cart-summary">
+    <strong id="floatingCartTitle">Your cart</strong>
+    <span id="floatingCartSubtitle">0 items</span>
+  </div>
+
+  <button
+    class="floating-cart-button"
+    id="viewCartButton"
+    type="button">
+    View Cart
+  </button>
+</div>
 
   <button class="scroll-top" id="scrollTop" aria-label="Scroll page">
     <svg viewBox="0 0 52 52" aria-hidden="true">
@@ -2235,15 +2406,18 @@ body.dark-theme .copy-upi-btn:hover {
     }
 
     function saveCart() {
-      localStorage.setItem("dishuCart", JSON.stringify(cart));
+  localStorage.setItem("dishuCart", JSON.stringify(cart));
 
-      $("cartCount").textContent = cart.reduce(
-        (total, item) => total + Number(item.quantity || 0),
-        0
-      );
+  $("cartCount").textContent = cart.reduce(
+    (total, item) => total + Number(item.quantity || 0),
+    0
+  );
 
-      renderCart();
-    }
+  renderCart();
+  renderFloatingCart();
+  updateProductCartUI();
+}
+
 
     async function api(payload) {
       let response;
@@ -2365,6 +2539,61 @@ body.dark-theme .copy-upi-btn:hover {
         }, 430);
       }, 280);
     }
+function formatFollowerCount(value) {
+  const count = Number(value);
+
+  if (!Number.isFinite(count) || count <= 0) {
+    return "—";
+  }
+
+  if (count >= 1000000) {
+    return (count / 1000000)
+      .toFixed(1)
+      .replace(".0", "") + "M+";
+  }
+
+  if (count >= 1000) {
+    return (count / 1000)
+      .toFixed(1)
+      .replace(".0", "") + "K+";
+  }
+
+  return count.toLocaleString("en-IN") + "+";
+}
+
+function updateInstagramFollowerDisplay(count) {
+  const formatted = formatFollowerCount(count);
+
+  if ($("instagramFollowersHero")) {
+    $("instagramFollowersHero").textContent = formatted;
+  }
+
+  if ($("instagramFollowersAbout")) {
+    $("instagramFollowersAbout").textContent = formatted;
+  }
+}
+async function loadInstagramFollowers() {
+  try {
+    const result = await api({
+      action: "getInstagramFollowers"
+    });
+
+    const followers = result.data && result.data.followers;
+
+    if (followers !== undefined) {
+      updateInstagramFollowerDisplay(followers);
+
+      if ($("adminInstagramFollowers")) {
+        $("adminInstagramFollowers").value = followers;
+      }
+    }
+  } catch (error) {
+    console.warn(
+      "Instagram follower count unavailable:",
+      error.message
+    );
+  }
+}
 
     async function loadBanners() {
       try {
@@ -2476,6 +2705,66 @@ body.dark-theme .copy-upi-btn:hover {
         </button>
       `;
     }
+function cartQuantity(id) {
+  const item = cart.find(
+    cartItem => String(cartItem.id) === String(id)
+  );
+
+  return item ? Number(item.quantity) : 0;
+}
+
+function updateProductCartUI() {
+  if (artworks.length) {
+    renderProducts();
+  }
+}
+
+function renderFloatingCart() {
+  const floatingCart = $("floatingCart");
+
+  if (!cart.length) {
+    floatingCart.classList.remove("visible");
+    return;
+  }
+
+  const itemCount = cart.reduce(
+    (total, item) => total + Number(item.quantity || 0),
+    0
+  );
+
+  const thumbnails = cart.slice(0, 4).map(item => {
+    const image = productImages(item)[0];
+
+    return image
+      ? `<img
+          class="floating-cart-thumb"
+          src="${escapeHtml(image)}"
+          alt="${escapeHtml(item.name)}">`
+      : `<span class="floating-cart-more">♡</span>`;
+  });
+
+  if (cart.length > 4) {
+    thumbnails.push(
+      `<span class="floating-cart-more">+${cart.length - 4}</span>`
+    );
+  }
+
+  $("floatingCartThumbnails").innerHTML = thumbnails.join("");
+  $("floatingCartTitle").textContent =
+    cart.length === 1 ? cart[0].name : "Your selected items";
+
+  $("floatingCartSubtitle").textContent =
+    `${itemCount} ${itemCount === 1 ? "item" : "items"} • ` +
+    money(
+      cart.reduce(
+        (total, item) =>
+          total + actualPrice(item) * Number(item.quantity || 0),
+        0
+      )
+    );
+
+  floatingCart.classList.add("visible");
+}
 
     function renderProducts() {
       const query = $("search").value.trim().toLowerCase();
@@ -2531,8 +2820,7 @@ body.dark-theme .copy-upi-btn:hover {
       );
 
       $("products").innerHTML = visibleProducts.map(product => {
-        const outOfStock = Number(product.stock) <= 0;
-
+        
         return `
           <article class="product-card">
             ${
@@ -2567,31 +2855,52 @@ body.dark-theme .copy-upi-btn:hover {
                 }
               </div>
 
-              <span class="stock ${outOfStock ? "out" : ""}">
-                ${
-                  outOfStock
-                    ? "Out of stock"
-                    : Number(product.stock) <= 2
-                      ? "Only " + product.stock + " left"
-                      : "In stock"
-                }
-              </span>
-
               <div class="product-actions">
-                <button
-                  class="btn btn-outline"
-                  data-add="${escapeHtml(product.id)}"
-                  ${outOfStock ? "disabled" : ""}>
-                  Add to cart
-                </button>
+  <div class="product-cart-control">
+    ${
+      cartQuantity(product.id) > 0
+        ? `
+          <div class="product-quantity">
+            <button
+              type="button"
+              data-product-minus="${escapeHtml(product.id)}"
+              aria-label="Decrease quantity">
+              −
+            </button>
 
-                <button
-                  class="btn btn-primary"
-                  data-buy="${escapeHtml(product.id)}"
-                  ${outOfStock ? "disabled" : ""}>
-                  Enquire now
-                </button>
-              </div>
+            <span>${cartQuantity(product.id)}</span>
+
+            <button
+              type="button"
+              data-product-plus="${escapeHtml(product.id)}"
+              aria-label="Increase quantity">
+              +
+            </button>
+          </div>
+        `
+        : `
+          <button
+            class="btn btn-outline"
+            data-add="${escapeHtml(product.id)}">
+            Add to cart
+          </button>
+        `
+    }
+  </div>
+
+  <button
+    class="btn btn-primary"
+    data-buy="${escapeHtml(product.id)}"
+    title="Enquire on Instagram">
+    Enquire now
+    <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+      <circle cx="12" cy="12" r="4"></circle>
+      <circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"></circle>
+    </svg>
+  </button>
+</div>
+
             </div>
           </article>
         `;
@@ -2602,70 +2911,68 @@ body.dark-theme .copy-upi-btn:hover {
     }
 
     function reconcileCart() {
-      cart = cart
-        .map(cartItem => {
-          const current = artworks.find(
-            product => String(product.id) === String(cartItem.id)
-          );
-
-          if (!current || Number(current.stock) <= 0) {
-            return null;
-          }
-
-          return {
-            ...current,
-            quantity: Math.min(
-              Math.max(1, Number(cartItem.quantity)),
-              Number(current.stock)
-            )
-          };
-        })
-        .filter(Boolean);
-    }
-
-    function addToCart(id) {
-      const product = artworks.find(
-        item => String(item.id) === String(id)
+  cart = cart
+    .map(cartItem => {
+      const current = artworks.find(
+        product => String(product.id) === String(cartItem.id)
       );
 
-      if (!product || Number(product.stock) <= 0) return;
-
-      const existing = cart.find(
-        item => String(item.id) === String(id)
-      );
-
-      if (existing) {
-        if (existing.quantity >= Number(product.stock)) return;
-        existing.quantity += 1;
-      } else {
-        cart.push({
-          ...product,
-          quantity: 1
-        });
+      if (!current) {
+        return null;
       }
 
-      saveCart();
-    }
+      return {
+        ...current,
+        quantity: Math.max(
+          1,
+          Math.floor(Number(cartItem.quantity) || 1)
+        )
+      };
+    })
+    .filter(Boolean);
+}
+
+function addToCart(id) {
+  const product = artworks.find(
+    item => String(item.id) === String(id)
+  );
+
+  if (!product) return;
+
+  const existing = cart.find(
+    item => String(item.id) === String(id)
+  );
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      ...product,
+      quantity: 1
+    });
+  }
+
+  saveCart();
+}
 
     function changeQuantity(id, amount) {
-      const product = artworks.find(
-        item => String(item.id) === String(id)
-      );
+  const item = cart.find(
+    cartItem => String(cartItem.id) === String(id)
+  );
 
-      const item = cart.find(
-        cartItem => String(cartItem.id) === String(id)
-      );
+  if (!item) return;
 
-      if (!product || !item) return;
+  item.quantity = Math.max(
+    0,
+    Number(item.quantity) + amount
+  );
 
-      item.quantity = Math.min(
-        Number(product.stock),
-        Math.max(0, Number(item.quantity) + amount)
-      );
+  cart = cart.filter(
+    cartItem => cartItem.quantity > 0
+  );
 
-      cart = cart.filter(cartItem => cartItem.quantity > 0);
-      saveCart();
-    }
+  saveCart();
+}
 
     function removeFromCart(id) {
       cart = cart.filter(
@@ -2751,12 +3058,6 @@ body.dark-theme .copy-upi-btn:hover {
             salePrice: Number(
               getField(item, "SALE PRICE", "SALEPRICE", "salePrice") || 0
             ),
-            stock: Math.max(
-              0,
-              Math.floor(
-                Number(getField(item, "STOCK", "stock") || 0)
-              )
-            ),
             description: getField(
               item,
               "DESCRIPTION",
@@ -2810,51 +3111,6 @@ body.dark-theme .copy-upi-btn:hover {
         $("formStatus").textContent = error.message;
       }
     }
-async function copyText(text) {
-  let clipboardError;
-
-  if (navigator.clipboard) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (error) {
-      clipboardError = error;
-    }
-  }
-
-  const textarea = document.createElement("textarea");
-
-  textarea.value = text;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.top = "0";
-  textarea.style.left = "-9999px";
-  textarea.style.width = "1px";
-  textarea.style.height = "1px";
-  textarea.style.opacity = "0";
-
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
-  textarea.setSelectionRange(0, text.length);
-
-  let copied = false;
-
-  try {
-    copied = document.execCommand("copy");
-  } catch (error) {
-    copied = false;
-  }
-
-  textarea.remove();
-
-  if (copied) {
-    return true;
-  }
-
-  throw clipboardError || new Error("Clipboard permission denied.");
-}
-
 
     async function submitOrder() {
       if (!cart.length) {
@@ -2899,7 +3155,7 @@ async function copyText(text) {
         await copyMessage(message);
 
         $("orderStatus").textContent =
-          "Your enquiry was copied. Paste it in the Instagram DM that opened.";
+          "Message copied. Paste it into the Instagram chat.";
 
         window.open(
           "https://ig.me/m/art_by_dishu06",
@@ -2964,7 +3220,12 @@ async function copyText(text) {
         $("adminSection").classList.add("visible");
 
         await loadAdminProducts();
-        $("adminSection").scrollIntoView({ behavior: "smooth" });
+await loadInstagramFollowers();
+
+$("adminSection").scrollIntoView({
+  behavior: "smooth"
+});
+
       } catch (error) {
         $("adminLoginStatus").textContent = error.message;
       }
@@ -3015,8 +3276,6 @@ async function copyText(text) {
         getField(product, "PRICE", "price");
       $("adminProductSalePrice").value =
         getField(product, "SALE PRICE", "SALEPRICE", "salePrice");
-      $("adminProductStock").value =
-        getField(product, "STOCK", "stock");
       $("adminProductDescription").value =
         getField(product, "DESCRIPTION", "description");
       $("adminProductFeatured").checked =
@@ -3047,6 +3306,32 @@ async function copyText(text) {
         reader.readAsDataURL(file);
       });
     }
+async function saveInstagramFollowers() {
+  const followers = $("adminInstagramFollowers").value.trim();
+
+  if (followers === "") {
+    $("instagramStatus").textContent =
+      "Please enter the follower count.";
+    return;
+  }
+
+  try {
+    const result = await api({
+      action: "saveInstagramFollowers",
+      token: adminToken,
+      followers: followers
+    });
+
+    updateInstagramFollowerDisplay(
+      result.data.followers
+    );
+
+    $("instagramStatus").textContent =
+      "Instagram count updated successfully.";
+  } catch (error) {
+    $("instagramStatus").textContent = error.message;
+  }
+}
 
     async function saveProduct() {
       $("adminStatus").textContent = "";
@@ -3075,7 +3360,6 @@ async function copyText(text) {
             category: $("adminProductCategory").value.trim(),
             price: $("adminProductPrice").value,
             salePrice: $("adminProductSalePrice").value,
-            stock: $("adminProductStock").value,
             description: $("adminProductDescription").value.trim(),
             featured: $("adminProductFeatured").checked,
             imageUrl: imageUrls.join(",")
@@ -3213,6 +3497,10 @@ async function copyText(text) {
       closeModal("loginModal");
       openModal("passwordModal");
     });
+$("saveInstagramFollowers").addEventListener(
+  "click",
+  saveInstagramFollowers
+);
 
     $("changePassword").addEventListener("click", changePassword);
     $("saveProduct").addEventListener("click", saveProduct);
@@ -3242,6 +3530,9 @@ async function copyText(text) {
       currentPage = 1;
       renderProducts();
     });
+$("viewCartButton").addEventListener("click", () => {
+  openModal("cartModal");
+});
 
     document.addEventListener("click", event => {
       const element = event.target;
@@ -3274,6 +3565,13 @@ async function copyText(text) {
           });
         }
       }
+if (element.dataset.productMinus) {
+  changeQuantity(element.dataset.productMinus, -1);
+}
+
+if (element.dataset.productPlus) {
+  changeQuantity(element.dataset.productPlus, 1);
+}
 
       if (element.dataset.banner) {
         changeBanner(Number(element.dataset.banner));
@@ -3284,9 +3582,10 @@ async function copyText(text) {
       }
 
       if (element.dataset.buy) {
-        addToCart(element.dataset.buy);
-        openModal("cartModal");
-      }
+  addToCart(element.dataset.buy);
+  openModal("cartModal");
+}
+
 
       if (element.dataset.photo) {
         const product = artworks.find(
@@ -3322,31 +3621,9 @@ async function copyText(text) {
       }
         });
 
-    $("copyUpiBtn").addEventListener("click", async () => {
-  const upiId = $("upiId").textContent.trim();
-  const feedback = $("copyFeedback");
-
-  feedback.className = "copy-feedback";
-
-  try {
-    await copyText(upiId);
-    feedback.textContent = "UPI ID copied";
-    feedback.classList.add("show");
-    } catch (error) {
-    feedback.textContent = "Copy blocked. Long-press the UPI ID to copy.";
-    feedback.classList.add("show", "error");
-  }
-
-
-  setTimeout(() => {
-    feedback.classList.remove("show", "error");
-    feedback.textContent = "";
-  }, 2200);
-});
-
-
     renderBanner();
     loadBanners();
+    loadInstagramFollowers();
     saveCart();
     loadProducts();
 
