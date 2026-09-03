@@ -275,6 +275,34 @@ body {
   background: linear-gradient(135deg, #ffe7df, #f8c7ce);
 }
 
+.hero-banner-area {
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-banner {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-banner .banner-next {
+  right: 10px;
+}
+
+.hero-banner .dots {
+  position: absolute;
+  right: 0;
+  bottom: -22px;
+  left: 0;
+}
+
+@media (max-width: 600px) {
+
+  .hero-banner .dots {
+    bottom: -18px;
+  }
+}
 
 
     .hero-content {
@@ -345,14 +373,6 @@ body {
       color: var(--dark);
     }
 
-   .hero-image {
-  width: 100%;
-  height: 190px;
-  display: block;
-  border-radius: 16px;
-  object-fit: cover;
-  background: transparent;
-}
 
     .hero-details {
   display: flex;
@@ -391,12 +411,13 @@ body {
     }
 
     .banner img {
-      display: block;
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      border-radius: 22px;
-    }
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
 
     .banner img.slide-out-left {
       animation: bannerOutLeft .28s ease-in forwards;
@@ -592,9 +613,9 @@ body {
       line-height: 1.2;
     }
 
-    .product-info p {
-  min-height: 0;
-  margin: 3px 0 2px;
+.product-info p {
+  min-height: 44px;
+  margin: 5px 0 12px;
   color: var(--muted);
   font-size: .78rem;
   line-height: 1.4;
@@ -605,14 +626,14 @@ body {
 }
 
     .price {
-  margin: 4px 0 7px;
+  margin: 0 0 10px;
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
 
-      color: var(--text);
-      font-family: "Manrope", sans-serif;
-      font-size: .95rem;
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
 
     .old-price {
       margin-left: 4px;
@@ -863,22 +884,25 @@ body.dark-theme .enquiry-information {
     }
 
     #cartModal .modal-card {
-      width: min(560px, calc(100vw - 24px));
-      max-height: min(760px, calc(100dvh - 24px));
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      overflow: hidden;
-      border-radius: 22px;
-      background: var(--cream);
-    }
+  width: min(560px, calc(100vw - 24px));
+  max-height: min(760px, calc(100dvh - 24px));
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 22px;
+  background: var(--cream);
+}
+
 
     #cartModal .modal-header {
-      margin: 0;
-      padding: 20px 22px;
-      border-bottom: 1px solid var(--line);
-      background: var(--cream);
-    }
+  margin: 0;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: var(--cream);
+}
+
 
     #cartModal .modal-header h2 {
       margin: 0;
@@ -886,11 +910,12 @@ body.dark-theme .enquiry-information {
     }
 
     #cartItems {
-      flex: 0 1 auto;
-      max-height: 30dvh;
-      padding: 4px 22px 0;
-      overflow-y: auto;
-    }
+  flex: 0 0 auto;
+  max-height: none;
+  padding: 4px 22px 0;
+  overflow: visible;
+}
+
 
     .cart-item {
       display: grid;
@@ -1024,14 +1049,15 @@ body.dark-theme .enquiry-information {
     }
 
     #checkoutArea {
-      flex: 1 1 auto;
-      min-height: 0;
-      margin-top: 2px;
-      padding: 22px;
-      border-top: 1px solid var(--line);
-      background: #fff;
-      overflow-y: auto;
-    }
+  flex: 0 0 auto;
+  min-height: 0;
+  margin-top: 2px;
+  padding: 16px 22px 20px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+  overflow: visible;
+}
+
 
     #checkoutArea h3 {
       margin-bottom: 14px;
@@ -1192,12 +1218,6 @@ body.dark-theme .loading-products {
     }
 body.dark-theme .hero {
   background: linear-gradient(135deg, #4a3038, #643d48);
-  box-shadow: none;
-}
-
-body.dark-theme .hero-image {
-  background: transparent;
-  border: 0;
   box-shadow: none;
 }
 
@@ -1530,12 +1550,6 @@ body.dark-theme .hero-image {
     border-radius: 18px;
   }
 
-  .hero-image {
-    height: 145px;
-    order: -1;
-    border-radius: 14px;
-  }
-
   .hero h1 {
     font-size: 1.85rem;
   }
@@ -1582,8 +1596,10 @@ body.dark-theme .hero-image {
       }
 
       .banner img {
-        height: 150px;
-      }
+  height: 150px;
+}
+
+
 
       #cartModal {
         place-items: end center;
@@ -1602,15 +1618,18 @@ body.dark-theme .hero-image {
       }
 
       #cartItems {
-        max-height: 28dvh;
-        padding: 2px 18px 0;
-      }
+  max-height: none;
+  padding: 2px 18px 0;
+  overflow: visible;
+}
+
 
       .cart-item {
-        grid-template-columns: 60px minmax(0, 1fr);
-        gap: 11px;
-        padding: 13px 0;
-      }
+  grid-template-columns: 60px minmax(0, 1fr) auto;
+  gap: 9px;
+  padding: 10px 0;
+}
+
 
       .cart-art {
         width: 60px;
@@ -1619,18 +1638,21 @@ body.dark-theme .hero-image {
       }
 
       .cart-controls {
-        grid-column: 2;
-        margin-top: 7px;
-        justify-content: flex-start;
-      }
+  grid-column: auto;
+  margin-top: 0;
+  justify-content: flex-end;
+}
+
 
       #cartFooter {
         padding: 0 18px 15px;
       }
 
       #checkoutArea {
-        padding: 18px;
-      }
+  padding: 0 18px 18px;
+  overflow: visible;
+}
+
       .floating-cart {
   bottom: 12px;
   width: calc(100% - 20px);
@@ -1739,7 +1761,79 @@ body.dark-theme .copy-upi-btn:hover {
   background: #cf7b8b;
   color: #211a1d;
 }
+.password-wrapper {
+  position: relative;
+}
 
+.password-wrapper .form-control {
+  padding-right: 46px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  transform: translateY(-50%);
+}
+
+.password-toggle:hover {
+  background: var(--pink);
+  color: var(--dark);
+}
+
+.password-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Landscape hero banners */
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+#checkoutArea {
+  margin-top: 0;
+  padding: 0 22px 18px;
+  border-top: 0;
+  background: var(--cream);
+}
+
+#checkoutArea h3 {
+  margin: 0;
+  padding: 14px 0 8px;
+  border-top: 1px solid var(--line);
+  font-family: "DM Sans", sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+#checkoutArea .enquiry-information {
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: .7rem;
+  line-height: 1.5;
+}
+
+#checkoutArea .btn {
+  width: 100%;
+}
 
   </style>
 </head>
@@ -1862,24 +1956,22 @@ body.dark-theme .copy-upi-btn:hover {
         </div>
       </div>
 
-      <img
-        class="hero-image"
-        src="https://drive.google.com/thumbnail?id=13lblfEhTeTOG7YcKwhTbcd08EwP3IvB5&sz=w1600"
-        alt="Resin handmade art">
-    </section>
+      <div class="hero-banner-area">
+  <div class="banner hero-banner">
+    <img id="bannerImage" alt="Art by Dishu banner">
 
-    <section class="banner">
-      <img id="bannerImage" alt="Art by Dishu banner">
+    <button
+      class="banner-next"
+      id="bannerNext"
+      type="button"
+      aria-label="Show next banner">
+      ›
+    </button>
 
-      <button
-        class="banner-next"
-        id="bannerNext"
-        type="button"
-        aria-label="Show next banner">
-        ›
-      </button>
+    <div class="dots" id="bannerDots"></div>
+  </div>
+</div>
 
-      <div class="dots" id="bannerDots"></div>
     </section>
 
     <section class="section" id="shop">
@@ -2171,9 +2263,29 @@ body.dark-theme .copy-upi-btn:hover {
       </div>
 
       <div class="form-group">
-        <label for="adminPassword">Password</label>
-        <input class="form-control" id="adminPassword" type="password" autocomplete="current-password">
-      </div>
+  <label for="adminPassword">Password</label>
+
+  <div class="password-wrapper">
+    <input
+      class="form-control"
+      id="adminPassword"
+      type="password"
+      autocomplete="current-password">
+
+    <button
+      class="password-toggle"
+      type="button"
+      data-password-toggle="adminPassword"
+      aria-label="Show password"
+      title="Show password">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+        <circle cx="12" cy="12" r="2.5"></circle>
+      </svg>
+    </button>
+  </div>
+</div>
+
 
       <button class="btn btn-primary" id="adminLogin">Login</button>
       <button class="btn btn-outline" id="openPasswordModal">
@@ -2193,18 +2305,70 @@ body.dark-theme .copy-upi-btn:hover {
 
       <div class="form-group">
         <label for="currentPassword">Current password</label>
-        <input class="form-control" id="currentPassword" type="password">
+        <div class="password-wrapper">
+  <input class="form-control" id="currentPassword" type="password">
+
+  <button
+    class="password-toggle"
+    type="button"
+    data-password-toggle="currentPassword"
+    aria-label="Show password"
+    title="Show password">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+      <circle cx="12" cy="12" r="2.5"></circle>
+    </svg>
+  </button>
+</div>
       </div>
 
       <div class="form-group">
-        <label for="newPassword">New password</label>
-        <input class="form-control" id="newPassword" type="password">
-      </div>
+  <label for="newPassword">New password</label>
+
+  <div class="password-wrapper">
+    <input
+      class="form-control"
+      id="newPassword"
+      type="password">
+
+    <button
+      class="password-toggle"
+      type="button"
+      data-password-toggle="newPassword"
+      aria-label="Show password"
+      title="Show password">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+        <circle cx="12" cy="12" r="2.5"></circle>
+      </svg>
+    </button>
+  </div>
+</div>
+
 
       <div class="form-group">
-        <label for="confirmPassword">Confirm new password</label>
-        <input class="form-control" id="confirmPassword" type="password">
-      </div>
+  <label for="confirmPassword">Confirm new password</label>
+
+  <div class="password-wrapper">
+    <input
+      class="form-control"
+      id="confirmPassword"
+      type="password">
+
+    <button
+      class="password-toggle"
+      type="button"
+      data-password-toggle="confirmPassword"
+      aria-label="Show password"
+      title="Show password">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+        <circle cx="12" cy="12" r="2.5"></circle>
+      </svg>
+    </button>
+  </div>
+</div>
+
 
       <button class="btn btn-primary" id="changePassword">
         Change Password
@@ -2229,29 +2393,10 @@ body.dark-theme .copy-upi-btn:hover {
       <div id="checkoutArea" hidden>
         <h3>Product enquiry</h3>
 
-        <div class="form-group">
-          <label for="orderName">Name</label>
-          <input class="form-control" id="orderName">
-        </div>
-
-        <div class="form-group">
-          <label for="orderEmail">Email</label>
-          <input class="form-control" id="orderEmail" type="email">
-        </div>
-
-        <div class="form-group">
-          <label for="orderPhone">Phone</label>
-          <input class="form-control" id="orderPhone" type="tel">
-        </div>
-
-        <div class="form-group">
-          <label for="orderAddress">Delivery address</label>
-          <textarea class="form-control" id="orderAddress"></textarea>
-        </div>
 <p class="enquiry-information">
-  Your enquiry message will be copied automatically. After clicking the
-  button below, paste the message into our Instagram chat.
+  Final delivery charges and availability will be confirmed before payment.
 </p>
+
 
         <button class="btn btn-primary" id="submitOrder">
   Copy message & open Instagram
@@ -2539,6 +2684,7 @@ body.dark-theme .copy-upi-btn:hover {
         }, 430);
       }, 280);
     }
+
 function formatFollowerCount(value) {
   const count = Number(value);
 
@@ -2547,19 +2693,24 @@ function formatFollowerCount(value) {
   }
 
   if (count >= 1000000) {
-    return (count / 1000000)
+    const millions = Math.floor(count / 100000) / 10;
+
+    return millions
       .toFixed(1)
       .replace(".0", "") + "M+";
   }
 
   if (count >= 1000) {
-    return (count / 1000)
+    const thousands = Math.floor(count / 100) / 10;
+
+    return thousands
       .toFixed(1)
       .replace(".0", "") + "K+";
   }
 
   return count.toLocaleString("en-IN") + "+";
 }
+
 
 function updateInstagramFollowerDisplay(count) {
   const formatted = formatFollowerCount(count);
@@ -3026,15 +3177,12 @@ function addToCart(id) {
       );
 
       $("cartFooter").innerHTML = `
-        <div class="cart-total">
-          <span>Estimated total</span>
-          <span>${money(total)}</span>
-        </div>
+  <div class="cart-total">
+    <span>Estimated total</span>
+    <span>${money(total)}</span>
+  </div>
+`;
 
-        <p class="status">
-          Final delivery charges and availability will be confirmed before payment.
-        </p>
-      `;
     }
 
     async function loadProducts() {
@@ -3113,60 +3261,51 @@ function addToCart(id) {
     }
 
     async function submitOrder() {
-      if (!cart.length) {
-        $("orderStatus").textContent = "Your cart is empty.";
-        return;
-      }
+  if (!cart.length) {
+    $("orderStatus").textContent = "Your cart is empty.";
+    return;
+  }
 
-      const name = $("orderName").value.trim();
-      const email = $("orderEmail").value.trim();
-      const phone = $("orderPhone").value.trim();
-      const address = $("orderAddress").value.trim();
+  const selectedProducts = cart.map((item, index) => {
+    const price = actualPrice(item);
 
-      if (!name || !phone || !address) {
-        $("orderStatus").textContent =
-          "Please fill in your name, phone and delivery address.";
-        return;
-      }
+    return `${index + 1}. ${item.name} × ${item.quantity} — ${money(
+      price * item.quantity
+    )}`;
+  }).join("\n");
 
-      const selectedProducts = cart.map((item, index) => {
-        const price = actualPrice(item);
+  const total = cart.reduce(
+    (sum, item) =>
+      sum + actualPrice(item) * Number(item.quantity || 0),
+    0
+  );
 
-        return `${index + 1}. ${item.name} × ${item.quantity} — ${money(
-          price * item.quantity
-        )}`;
-      }).join("\n");
+  const message = [
+    "Hi, I want to enquire about:",
+    "",
+    selectedProducts,
+    "",
+    `Estimated total: ${money(total)}`,
+    "",
+    "Please confirm availability, delivery charges and order details."
+  ].join("\n");
 
-      const message = [
-        "Hi, I want to enquire about:",
-        "",
-        selectedProducts,
-        "",
-        "My details:",
-        `Name: ${name}`,
-        `Email: ${email || "Not provided"}`,
-        `Phone: ${phone}`,
-        `Address: ${address}`,
-        "",
-        "Please confirm availability and charges."
-      ].join("\n");
+  try {
+    await copyMessage(message);
 
-      try {
-        await copyMessage(message);
+    $("orderStatus").textContent =
+      "Message copied. Paste it into the Instagram chat.";
 
-        $("orderStatus").textContent =
-          "Message copied. Paste it into the Instagram chat.";
-
-        window.open(
-          "https://ig.me/m/art_by_dishu06",
-          "_blank",
-          "noopener,noreferrer"
-        );
-      } catch (error) {
-        $("orderStatus").textContent =
-          "Please copy the enquiry message and send it on Instagram.";
-      }
-    }
+    window.open(
+      "https://ig.me/m/art_by_dishu06",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  } catch (error) {
+    $("orderStatus").textContent =
+      "Please copy the enquiry message and send it on Instagram.";
+  }
+}
 
     async function copyMessage(message) {
       if (navigator.clipboard && window.isSecureContext) {
@@ -3431,6 +3570,24 @@ async function saveInstagramFollowers() {
       openModal("loginModal");
       $("adminUsername").focus();
     });
+document.addEventListener("click", event => {
+  const toggle = event.target.closest("[data-password-toggle]");
+
+  if (!toggle) return;
+
+  const input = $(toggle.dataset.passwordToggle);
+  const showing = input.type === "text";
+
+  input.type = showing ? "password" : "text";
+  toggle.setAttribute(
+    "aria-label",
+    showing ? "Show password" : "Hide password"
+  );
+  toggle.setAttribute(
+    "title",
+    showing ? "Show password" : "Hide password"
+  );
+});
 
     document.body.classList.remove("dark-theme");
 
