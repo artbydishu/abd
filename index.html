@@ -608,6 +608,15 @@ body {
       padding: 14px;
     }
 
+    .product-info .price {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .product-info .product-actions {
+      margin-top: 0;
+    }
+
     .product-category {
       color: var(--dark);
       font-size: .63rem;
@@ -2611,15 +2620,32 @@ body.dark-theme .product-detail-card {
     }
 
     function driveImageUrl(value, size = "w1600") {
-      const url = String(value || "").trim();
-      const match = url.match(
-        /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=|thumbnail\?id=)([^/?&#]+)/i
-      );
+  const url = String(value || "").trim();
 
-      if (!match) return url;
+  if (!url) {
+    return "";
+  }
 
-      return `https://drive.google.com/thumbnail?id=${encodeURIComponent(match[1])}&sz=${size}`;
-    }
+  if (
+    /drive\.google\.com\/thumbnail\?id=/i.test(url) ||
+    /drive\.google\.com\/uc\?export=view&id=/i.test(url)
+  ) {
+    return url;
+  }
+
+  const match = url.match(
+    /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([^/?&#]+)/i
+  );
+
+  if (!match) {
+    return url;
+  }
+
+  return `https://drive.google.com/thumbnail?id=${
+    encodeURIComponent(match[1])
+  }&sz=${size}`;
+}
+
 
     function actualPrice(product) {
       const price = Number(product.price || 0);
@@ -2633,8 +2659,75 @@ body.dark-theme .product-detail-card {
     function productImages(product) {
       return String(product.imageUrl || "")
         .split(/[,;\n]+/)
-        .map(url => driveImageUrl(url.trim(), "w1200"))
+        .map(url => url.trim())
+        .filter(Boolean)
+        .map(url => driveImageUrl(url, "w1200"))
         .filter(url => /^https:\/\//i.test(url));
+    }
+
+    function driveFileId(value) {
+      const url = String(value || "").trim();
+
+      const thumbnailMatch = url.match(
+        /drive\.google\.com\/thumbnail\?[^#]*\bid=([^&#]+)/i
+      );
+      const pathMatch = url.match(
+        /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=view&)?id=)([^/?&#]+)/i
+      );
+
+      return thumbnailMatch
+        ? decodeURIComponent(thumbnailMatch[1])
+        : pathMatch
+          ? decodeURIComponent(pathMatch[1])
+          : "";
+    }
+
+    function imageCandidates(value, size = "w1200") {
+      const original = String(value || "").trim();
+      const fileId = driveFileId(original);
+
+      if (!fileId) {
+        return original ? [original] : [];
+      }
+
+      return [
+        `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=${size}`,
+        `https://drive.google.com/uc?export=view&id=${encodeURIComponent(fileId)}`,
+        `https://drive.googleusercontent.com/download?id=${encodeURIComponent(fileId)}`
+      ];
+    }
+
+    function imageMarkup(url, alt) {
+      const candidates = imageCandidates(url);
+      const first = candidates[0] || "";
+      const next = candidates.slice(1);
+      const encodedCandidates = escapeHtml(JSON.stringify(next));
+
+      return `<img src="${escapeHtml(first)}" alt="${escapeHtml(alt)}"
+        data-image-fallbacks="${encodedCandidates}"
+        onerror="retryImage(this)">`;
+    }
+
+    function retryImage(image) {
+      let candidates = [];
+
+      try {
+        candidates = JSON.parse(image.dataset.imageFallbacks || "[]");
+      } catch (error) {
+        candidates = [];
+      }
+
+      const next = candidates.shift();
+
+      if (next) {
+        image.dataset.imageFallbacks = JSON.stringify(candidates);
+        image.src = next;
+        return;
+      }
+
+      image.onerror = null;
+      image.removeAttribute("src");
+      image.alt = "Image unavailable";
     }
 
     function loadCart() {
@@ -2917,7 +3010,7 @@ async function loadInstagramFollowers() {
       const image = images[index % images.length];
 
       return `
-        <img src="${escapeHtml(image)}" alt="${escapeHtml(product.name)}">
+        ${imageMarkup(image, product.name)}
         ${
           images.length > 1
             ? `
@@ -3295,7 +3388,8 @@ function addToCart(id) {
           <div class="cart-item">
             ${
               image
-                ? `<img class="cart-art" src="${escapeHtml(image)}" alt="">`
+                ? imageMarkup(image, "")
+                    .replace('<img ', '<img class="cart-art" ')
                 : `<div class="cart-art">♡</div>`
             }
 
