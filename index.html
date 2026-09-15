@@ -609,7 +609,7 @@ body {
     }
 
     .product-info .price {
-      margin-top: 0;
+      margin-top: auto;
       margin-bottom: 10px;
     }
 
@@ -2657,11 +2657,27 @@ body.dark-theme .product-detail-card {
     }
 
     function productImages(product) {
-      return String(product.imageUrl || "")
+      const rawValue = getField(
+        product,
+        "imageUrl",
+        "IMAGE",
+        "IMAGE URL",
+        "PHOTOS",
+        "image",
+        "photos"
+      );
+
+      return String(rawValue || "")
         .split(/[,;\n]+/)
-        .map(url => url.trim())
+        .map(value => value.trim())
         .filter(Boolean)
-        .map(url => driveImageUrl(url, "w1200"))
+        .map(value => {
+          const fileId = driveFileId(value);
+
+          return fileId
+            ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1200`
+            : value;
+        })
         .filter(url => /^https:\/\//i.test(url));
     }
 
@@ -3449,12 +3465,17 @@ function addToCart(id) {
               "DESCRIPTION",
               "description"
             ),
-            imageUrl: getField(
-              item,
-              "IMAGE",
-              "IMAGE URL",
-              "PHOTOS"
-            ),
+            imageUrl: String(
+              getField(
+                item,
+                "IMAGE",
+                "IMAGE URL",
+                "PHOTOS",
+                "image",
+                "imageUrl",
+                "photos"
+              ) || ""
+            ).trim(),
             featured:
               String(
                 getField(item, "FEATURED", "featured")
