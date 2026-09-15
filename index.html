@@ -7,6 +7,11 @@
 
   <title>Art by Dishu | Handmade Resin Art</title>
 
+  <link rel="icon" type="image/png"
+    href="https://drive.google.com/thumbnail?id=1rHpy6Pf1f6NRCxf4I2nDCug-gNZXDiYX&sz=w200">
+  <link rel="apple-touch-icon"
+    href="https://drive.google.com/thumbnail?id=1rHpy6Pf1f6NRCxf4I2nDCug-gNZXDiYX&sz=w200">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preload" as="image"
     href="https://drive.google.com/thumbnail?id=1rHpy6Pf1f6NRCxf4I2nDCug-gNZXDiYX&sz=w200">
@@ -2523,14 +2528,30 @@ body.dark-theme .copy-upi-btn:hover {
       return "";
     }
 
+    function driveImageUrl(value, size = "w1600") {
+      const url = String(value || "").trim();
+      const match = url.match(
+        /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=|thumbnail\?id=)([^/?&#]+)/i
+      );
+
+      if (!match) return url;
+
+      return `https://drive.google.com/thumbnail?id=${encodeURIComponent(match[1])}&sz=${size}`;
+    }
+
     function actualPrice(product) {
-      return Number(product.salePrice || product.price || 0);
+      const price = Number(product.price || 0);
+      const salePrice = Number(product.salePrice || 0);
+
+      return salePrice > 0 && salePrice < price
+        ? salePrice
+        : price;
     }
 
     function productImages(product) {
       return String(product.imageUrl || "")
         .split(",")
-        .map(url => url.trim())
+        .map(url => driveImageUrl(url.trim(), "w1200"))
         .filter(url => /^https:\/\//i.test(url));
     }
 
@@ -2623,7 +2644,7 @@ body.dark-theme .copy-upi-btn:hover {
         bannerIndex = 0;
       }
 
-      $("bannerImage").src = banners[bannerIndex];
+      $("bannerImage").src = driveImageUrl(banners[bannerIndex], "w1600");
 
       $("bannerDots").replaceChildren(
         ...banners.map((url, index) => {
@@ -2678,7 +2699,7 @@ body.dark-theme .copy-upi-btn:hover {
 
       setTimeout(() => {
         bannerIndex = index;
-        image.src = banners[bannerIndex];
+        image.src = driveImageUrl(banners[bannerIndex], "w1600");
         renderBanner();
 
         image.classList.remove(exitClass);
@@ -2767,7 +2788,7 @@ async function loadInstagramFollowers() {
           .filter(url => /^https:\/\/.+/i.test(url));
 
         if (validBanners.length) {
-          banners = validBanners;
+          banners = validBanners.map(url => driveImageUrl(url, "w1600"));
           bannerIndex = 0;
           renderBanner();
         }
@@ -3006,7 +3027,8 @@ function renderFloatingCart() {
               <div class="price">
                 ${money(actualPrice(product))}
                 ${
-                  product.salePrice && product.price
+                  product.salePrice > 0 &&
+                  product.salePrice < product.price
                     ? `<span class="old-price">${money(product.price)}</span>`
                     : ""
                 }
