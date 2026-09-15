@@ -275,7 +275,7 @@ body {
   background: linear-gradient(135deg, #ffe7df, #f8c7ce);
 }
 
-.hero-banner-area {
+    .hero-banner-area {
   width: 100%;
   min-width: 0;
 }
@@ -284,6 +284,10 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+.banner-visual {
+  position: relative;
 }
 
 .hero-banner .banner-next {
@@ -1958,15 +1962,17 @@ body.dark-theme .copy-upi-btn:hover {
 
       <div class="hero-banner-area">
   <div class="banner hero-banner">
-    <img id="bannerImage" alt="Art by Dishu banner">
+    <div class="banner-visual">
+      <img id="bannerImage" alt="Art by Dishu banner">
 
-    <button
-      class="banner-next"
-      id="bannerNext"
-      type="button"
-      aria-label="Show next banner">
-      ›
-    </button>
+      <button
+        class="banner-next"
+        id="bannerNext"
+        type="button"
+        aria-label="Show next banner">
+        ›
+      </button>
+    </div>
 
     <div class="dots" id="bannerDots"></div>
   </div>
@@ -2450,7 +2456,7 @@ body.dark-theme .copy-upi-btn:hover {
     let bannerBusy = false;
     let selectedCategory = "All";
     let currentPage = 1;
-    const PRODUCTS_PER_PAGE = 10;
+    const PRODUCTS_PER_PAGE = 12;
     let photoIndex = {};
     let adminToken = "";
     let adminProducts = [];
