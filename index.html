@@ -167,7 +167,8 @@ body {
   width: 32px;
   height: 32px;
   object-fit: contain;
-    }
+  border-radius: 9px;
+}
 
     .logo strong {
   display: block;
@@ -568,6 +569,7 @@ body {
       border: 1px solid var(--line);
       border-radius: 19px;
       background: #fff;
+      cursor: pointer;
     }
 
     .product-art {
@@ -602,6 +604,7 @@ body {
       flex: 1;
       display: flex;
       flex-direction: column;
+      min-height: 238px;
       padding: 14px;
     }
 
@@ -1844,6 +1847,65 @@ body.dark-theme .copy-upi-btn:hover {
   width: 100%;
 }
 
+.product-detail-card {
+  width: min(760px, calc(100vw - 24px));
+}
+
+.product-detail-image {
+  width: 100%;
+  max-height: 430px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  object-fit: contain;
+}
+
+.product-detail-category {
+  color: var(--dark);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.product-detail-description {
+  margin: 12px 0 18px;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.product-detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.product-detail-actions .btn {
+  flex: 1;
+}
+
+body.dark-theme .product-detail-card {
+  background: #211a1d;
+}
+
+@media (max-width: 600px) {
+  .product-info {
+    min-height: 250px;
+  }
+
+  .product-detail-card {
+    width: 100%;
+    max-height: 92dvh;
+  }
+
+  .product-detail-image {
+    max-height: 320px;
+  }
+
+  .product-detail-actions {
+    flex-direction: column;
+  }
+}
+
   </style>
 </head>
 
@@ -2231,6 +2293,25 @@ body.dark-theme .copy-upi-btn:hover {
     </div>
   </footer>
 
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+    <div class="modal-card product-detail-card">
+      <div class="modal-header">
+        <h2 id="productModalTitle">Artwork details</h2>
+        <button class="close" data-close="productModal" aria-label="Close product details">×</button>
+      </div>
+
+      <img class="product-detail-image" id="productDetailImage" alt="">
+      <div class="product-detail-category" id="productDetailCategory"></div>
+      <p class="product-detail-description" id="productDetailDescription"></p>
+      <div class="price" id="productDetailPrice"></div>
+
+      <div class="product-detail-actions">
+        <button class="btn btn-outline" id="productDetailCart">Add to cart</button>
+        <button class="btn btn-primary" id="productDetailBuy">Enquire now</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal" id="featureModal" role="dialog" aria-modal="true">
     <div class="modal-card">
       <div class="modal-header">
@@ -2465,6 +2546,7 @@ body.dark-theme .copy-upi-btn:hover {
     let photoIndex = {};
     let adminToken = "";
     let adminProducts = [];
+    let selectedProductDetail = null;
 
     function money(value) {
       return "₹" + Number(value || 0).toLocaleString("en-IN");
@@ -2550,7 +2632,7 @@ body.dark-theme .copy-upi-btn:hover {
 
     function productImages(product) {
       return String(product.imageUrl || "")
-        .split(",")
+        .split(/[,;\n]+/)
         .map(url => driveImageUrl(url.trim(), "w1200"))
         .filter(url => /^https:\/\//i.test(url));
     }
@@ -2944,6 +3026,40 @@ function renderFloatingCart() {
   floatingCart.classList.add("visible");
 }
 
+    function openProductDetails(id) {
+      const product = artworks.find(item => String(item.id) === String(id));
+
+      if (!product) return;
+
+      selectedProductDetail = product;
+      const image = productImages(product)[0];
+
+      $("productModalTitle").textContent = product.name;
+      $("productDetailCategory").textContent = product.category || "Handmade artwork";
+      $("productDetailDescription").textContent = product.description || "Handmade with care.";
+      $("productDetailPrice").innerHTML = `${money(actualPrice(product))}${
+        product.salePrice > 0 && product.salePrice < product.price
+          ? ` <span class="old-price">${money(product.price)}</span>`
+          : ""
+      }`;
+
+      const detailImage = $("productDetailImage");
+      if (image) {
+        detailImage.src = image;
+        detailImage.alt = product.name;
+        detailImage.hidden = false;
+      } else {
+        detailImage.removeAttribute("src");
+        detailImage.alt = "No product image available";
+        detailImage.hidden = true;
+      }
+
+      $("productDetailCart").textContent = cartQuantity(product.id) > 0
+        ? `Add another (${cartQuantity(product.id)})`
+        : "Add to cart";
+      openModal("productModal");
+    }
+
     function renderProducts() {
       const query = $("search").value.trim().toLowerCase();
       const sort = $("sort").value;
@@ -3000,7 +3116,7 @@ function renderFloatingCart() {
       $("products").innerHTML = visibleProducts.map(product => {
         
         return `
-          <article class="product-card">
+          <article class="product-card" data-product="${escapeHtml(product.id)}">
             ${
               product.featured
                 ? "<span class=\"badge\">Featured</span>"
@@ -3694,6 +3810,20 @@ $("saveInstagramFollowers").addEventListener(
     $("submitOrder").addEventListener("click", submitOrder);
     $("scrollTop").addEventListener("click", toggleScroll);
 
+    $("productDetailCart").addEventListener("click", () => {
+      if (!selectedProductDetail) return;
+      addToCart(selectedProductDetail.id);
+      $("productDetailCart").textContent =
+        `Add another (${cartQuantity(selectedProductDetail.id)})`;
+    });
+
+    $("productDetailBuy").addEventListener("click", () => {
+      if (!selectedProductDetail) return;
+      addToCart(selectedProductDetail.id);
+      closeModal("productModal");
+      openModal("cartModal");
+    });
+
     $("bannerNext").addEventListener("click", () => {
       if (banners.length > 1) {
         changeBanner((bannerIndex + 1) % banners.length);
@@ -3721,6 +3851,7 @@ $("viewCartButton").addEventListener("click", () => {
 
     document.addEventListener("click", event => {
       const element = event.target;
+      const productCard = element.closest("[data-product]");
 
       if (element.dataset.close) {
         closeModal(element.dataset.close);
@@ -3728,6 +3859,11 @@ $("viewCartButton").addEventListener("click", () => {
 
       if (element.classList.contains("modal") && element.id) {
         closeModal(element.id);
+      }
+
+      if (productCard && !element.closest("button")) {
+        openProductDetails(productCard.dataset.product);
+        return;
       }
 
       if (element.dataset.category) {
@@ -3773,6 +3909,7 @@ if (element.dataset.productPlus) {
 
 
       if (element.dataset.photo) {
+        event.stopPropagation();
         const product = artworks.find(
           item => String(item.id) === String(element.dataset.photo)
         );
